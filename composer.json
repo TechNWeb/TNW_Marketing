@@ -1,0 +1,15 @@
+{
+    "name": "tnw/marketing",
+    "description": "PowerSync  Marketing",
+    "require": {
+        "magento/framework": "101.0.*"
+    },
+    "type": "magento2-module",
+    "version": "2.0.2",
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "TNW\\Marketing\\": ""
+        }
+    }
+}

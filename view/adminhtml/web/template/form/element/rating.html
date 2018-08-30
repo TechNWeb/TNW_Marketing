@@ -1,0 +1,11 @@
+<div class='rating-stars text-center'>
+    <ul id='stars' data-bind="foreach: options">
+        <li class='star' data-bind="
+            attr: {title: label, 'data-value': value, 'data-index': $index},
+            event: {mouseover: $parent.mouseOver, mouseout: $parent.mouseOut},
+            click: $parent.mouseClick.bind($parent)
+        ">
+            <i class='fa fa-star fa-fw'></i>
+        </li>
+    </ul>
+</div>

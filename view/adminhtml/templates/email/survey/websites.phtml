@@ -1,0 +1,8 @@
+<?php $websites = $block->getWebsites() ?>
+<?php if (!empty($websites)): ?>
+<ul>
+    <?php /** @var \Magento\Store\Model\Website $website */ foreach ($websites as $website): ?>
+    <li><?php echo $website->getName() ?> (<?php echo $website->getDefaultStore()->getBaseUrl() ?>)</li>
+    <?php endforeach ?>
+</ul>
+<?php endif; ?>

@@ -1,0 +1,24 @@
+<!--
+/**
+ * Copyright © 2018 TechNWeb, Inc. All rights reserved.
+ * See TNW_LICENSE.txt for license details.
+ */
+-->
+<!--@subject {{trans "[Survey] Magento2 + QuickBooks Feedback"}} @-->
+<!--@vars {
+"var comment":"Comment",
+"var email":"Sender Email",
+"var name":"Sender Name",
+"var surveyResult":"Sender Survey Result",
+"var websites":"Sender Websites",
+"var rating":"Sender Rating"
+} @-->
+
+<p><b>{{trans "Name"}}:</b> {{var name}}</p>
+<p><b>{{trans "Email"}}:</b> {{var email}}</p>
+<p><b>{{trans "Survey Result"}}:</b> {{var surveyResult}}</p>
+<p><b>{{trans "Websites"}}:</b></p>
+<p>{{block class='Magento\\Framework\\View\\Element\\Template' area='adminhtml' template='TNW_Marketing::email/survey/websites.phtml' websites=$websites}}</p>
+<p><b>{{trans "Rating"}}:</b> {{var rating}}</p>
+<p><b>{{trans "Comments"}}:</b></p>
+<p>{{var comments}}</p>
