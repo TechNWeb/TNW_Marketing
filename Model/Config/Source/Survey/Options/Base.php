@@ -32,7 +32,7 @@ abstract class Base implements OptionSourceInterface
     {
 
         $options = [];
-        foreach (self::$optionsDetails as $optionDetails) {
+        foreach (static::$optionsDetails as $optionDetails) {
             $options[] = $optionDetails['label'];
         }
         return $options;
@@ -81,7 +81,7 @@ abstract class Base implements OptionSourceInterface
      */
     public function getOptionTimeModifier($optionId)
     {
-        $timeModifier = isset($optionsDetails[$optionId]['timemodifier'])? self::$optionsDetails[$optionId]['timemodifier']: null;
+        $timeModifier = isset(static::$optionsDetails[$optionId]['timemodifier'])? static::$optionsDetails[$optionId]['timemodifier']: null;
 
         return $timeModifier;
     }
