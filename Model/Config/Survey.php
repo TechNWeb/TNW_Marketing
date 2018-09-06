@@ -188,6 +188,7 @@ class Survey
                 'rating' => __('%1 star(s)', $params['rating']),
                 'comments' => $params['comments'],
                 'module' => $params['module'],
+                'moduleName' => $params['moduleName'],
             ])
             ->setFrom([
                 'name' => $user->getName(),
