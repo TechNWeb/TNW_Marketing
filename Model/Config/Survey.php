@@ -115,6 +115,25 @@ class Survey
     }
 
     /**
+     * @param null $timestamp
+     * @param null $module
+     * @return $this
+     */
+    public function setStartDate($timestamp = null, $module = null)
+    {
+        if (!$module) {
+            $module = self::DEFAULT_MODULE;
+        }
+
+        $configPath = sprintf(self::START_DATE, $module);
+
+        $this->configResource
+            ->saveConfig($configPath, $timestamp, ScopeConfigInterface::SCOPE_TYPE_DEFAULT, 0);
+
+        return $this;
+    }
+
+    /**
      * @param $type string
      * @return \TNW\Marketing\Model\Config\Source\Survey\Options\Base
      */
@@ -204,8 +223,7 @@ class Survey
             $timestamp = null;
         }
 
-        $this->configResource
-            ->saveConfig(Survey::START_DATE, $timestamp, ScopeConfigInterface::SCOPE_TYPE_DEFAULT, 0);
+        $this->setStartDate($timestamp, $params['module']);
 
         // clear the block html cache
         $this->cacheTypeList->cleanType('config');
