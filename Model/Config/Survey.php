@@ -8,7 +8,6 @@ namespace TNW\Marketing\Model\Config;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\App\Config\ConfigResource\ConfigInterface;
-use TNW\Marketing\Model\Config\Source\Survey\Options;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\App\Area;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
@@ -21,7 +20,7 @@ class Survey
 {
     const START_DATE = '%s/survey/start_date';
     const SURVEY_EMAIL_TEMPLATE = '%s_survey_email_template';
-    const DEFAULT_TYPE = 'tnw_marketing';
+    const DEFAULT_MODULE = 'tnw_marketing';
     const SNOOZE_TIME_MODIFIER = '+3 day';
 
     /**
@@ -104,13 +103,13 @@ class Survey
     /**
      * @return string
      */
-    public function startDate($type = null)
+    public function startDate($module = null)
     {
-        if (!$type) {
-            $type = self::DEFAULT_TYPE;
+        if (!$module) {
+            $module = self::DEFAULT_MODULE;
         }
 
-        $configPath = sprintf(self::START_DATE, $type);
+        $configPath = sprintf(self::START_DATE, $module);
 
         return $this->scopeConfig->getValue($configPath);
     }
@@ -123,17 +122,21 @@ class Survey
     {
         $optionsObject = isset($this->optionsObjects[$type]) ?
             $this->optionsObjects[$type] :
-            $this->optionsObjects[self::DEFAULT_TYPE];
+            $this->optionsObjects[self::DEFAULT_MODULE];
 
         return $optionsObject;
     }
 
     /**
-     * @param $type
+     * @param $type null|string
      * @return string
      */
-    public function getEmailTemplate($type)
+    public function getEmailTemplate($type = null)
     {
+        if (!$type) {
+            $type = self::DEFAULT_MODULE;
+        }
+
         $template = sprintf(self::SURVEY_EMAIL_TEMPLATE, $type);
 
         return $template;
@@ -151,7 +154,7 @@ class Survey
         $surveyResult = $params['survey_result'];
 
         $transport = $this->transportBuilder
-            ->setTemplateIdentifier($this->getEmailTemplate($params['module']))
+            ->setTemplateIdentifier($this->getEmailTemplate($params['type']))
             ->setTemplateOptions(
                 [
                     'area' => Area::AREA_ADMINHTML,
@@ -161,10 +164,11 @@ class Survey
             ->setTemplateVars([
                 'name' => $user->getName(),
                 'email' => $user->getEmail(),
-                'surveyResult' => $this->getSurveyOptionsByType($params['module'])->getOptionText($surveyResult),
+                'surveyResult' => $this->getSurveyOptionsByType($params['type'])->getOptionText($surveyResult),
                 'websites' => $this->websiteRepository->getList(),
                 'rating' => __('%1 star(s)', $params['rating']),
                 'comments' => $params['comments'],
+                'module' => $params['module'],
             ])
             ->setFrom([
                 'name' => $user->getName(),
@@ -190,7 +194,7 @@ class Survey
         if (!empty($params['snooze_survey'])) {
             $timeModifier = self::SNOOZE_TIME_MODIFIER;
         } else {
-            $timeModifier = $this->getSurveyOptionsByType($params['module'])->getOptionTimeModifier($params['survey_result']);
+            $timeModifier = $this->getSurveyOptionsByType($params['type'])->getOptionTimeModifier($params['survey_result']);
             $this->sendEmail($params, $user);
         }
 

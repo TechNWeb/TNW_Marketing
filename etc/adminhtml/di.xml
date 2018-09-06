@@ -4,16 +4,8 @@
         <arguments>
             <argument name="optionsObjects" xsi:type="array">
                 <item name="tnw_marketing" xsi:type="object">TNW\Marketing\Model\Config\Source\Survey\Options</item>
+                <item name="tnw_marketing_extended" xsi:type="object">TNW\Marketing\Model\Config\Source\Survey\ExtendedOptions</item>
             </argument>
         </arguments>
     </type>
-
-    <type name="TNW\Marketing\Model\Config\Source\Survey\Options">
-        <arguments>
-            <argument name="options" xsi:type="array">
-                <item name="tnw_marketing" xsi:type="object">TNW\Marketing\Model\Config\Source\Survey\Options</item>
-            </argument>
-        </arguments>
-    </type>
-
 </config>

@@ -55,10 +55,9 @@ class CanViewInterview implements VisibilityConditionInterface
      */
     public function isVisible(array $arguments)
     {
-        return true;
-        $type = $arguments['type']?:'';
+        $module = $arguments['module'] ?: '';
 
-        $startDate = $this->configSurvey->startDate($type);
+        $startDate = $this->configSurvey->startDate($module);
         if (empty($startDate)) {
             return false;
         }
