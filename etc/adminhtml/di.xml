@@ -5,6 +5,7 @@
             <argument name="optionsObjects" xsi:type="array">
                 <item name="tnw_marketing" xsi:type="object">TNW\Marketing\Model\Config\Source\Survey\Options</item>
                 <item name="tnw_marketing_extended" xsi:type="object">TNW\Marketing\Model\Config\Source\Survey\ExtendedOptions</item>
+                <item name="tnw_marketing_payment" xsi:type="object">TNW\Marketing\Model\Config\Source\Survey\PaymentOptions</item>
             </argument>
         </arguments>
     </type>
