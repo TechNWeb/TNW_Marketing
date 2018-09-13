@@ -16,10 +16,6 @@ class Form extends \Magento\Ui\Component\Form
      * @var Survey
      */
     private $configSurvey;
-    /**
-     * @var TimezoneInterface
-     */
-    private $timezone;
 
     /**
      * Module name where UI component is located
@@ -32,7 +28,6 @@ class Form extends \Magento\Ui\Component\Form
         ContextInterface $context,
         FilterBuilder $filterBuilder,
         Survey $configSurvey,
-        TimezoneInterface $timezone,
         $components = [],
         array $data = [],
         $module = null
@@ -43,7 +38,6 @@ class Form extends \Magento\Ui\Component\Form
 
         parent::__construct($context, $filterBuilder, $components, $data);
         $this->configSurvey = $configSurvey;
-        $this->timezone = $timezone;
         $this->module = $module;
     }
 
@@ -52,16 +46,10 @@ class Form extends \Magento\Ui\Component\Form
      */
     public function render()
     {
-        $startDate = $this->configSurvey->startDate($this->module);
-        if (empty($startDate)) {
+        if (!$this->configSurvey->shallShow($this->module)) {
             return false;
         }
 
-        $startTime = $this->timezone->date($startDate);
-        if ($this->timezone->date()->diff($startTime)->format('%r%a') <= 0) {
-            return parent::render();
-        }
-
-        return '';
+        return parent::render();
     }
 }

@@ -115,6 +115,24 @@ class Survey
     }
 
     /**
+     * @param null $module
+     * @return bool
+     */
+    public function shallShow($module = null)
+    {
+        $startDate = $this->startDate($module);
+        if (empty($startDate)) {
+            return false;
+        }
+
+        $startTime = $this->timezone->date($startDate);
+        if ($this->timezone->date()->diff($startTime)->format('%r%a') <= 0) {
+            return true;
+        }
+
+        return false;
+    }
+    /**
      * @param null $timestamp
      * @param null $module
      * @return $this
