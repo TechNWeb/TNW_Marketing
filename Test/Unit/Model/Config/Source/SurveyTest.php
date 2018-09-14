@@ -28,9 +28,19 @@ use Magento\Store\Model\Store;
 class SurveyTest extends TestCase
 {
     /**
-     * @var Survey|MockObject
+     * @var Survey
      */
     private $configSurvey;
+
+    /**
+     * @var TypeListInterface|MockObject
+     */
+    private $cacheTypeList;
+
+    /**
+     * @var \Magento\Framework\Event\ManagerInterface|MockObject
+     */
+    protected $_eventManager;
 
     /**
      * @var ScopeConfigInterface|MockObject
@@ -59,13 +69,23 @@ class SurveyTest extends TestCase
     {
         $objectManagerHelper = new ObjectManager($this);
 
-        $this->timezone = $this->createMock(TimezoneInterface::class);
+        /**
+         * partial mock, we'll override the "date" method
+         */
+        $this->timezone = $this->createPartialMock(\Magento\Framework\Stdlib\DateTime\Timezone::class, ['date']);
+
         $this->scopeConfig = $this->createMock(ScopeConfigInterface::class);
 
-        $this->optionsObjects['tnw_marketing'] = $this->createMock(\TNW\Marketing\Model\Config\Source\Survey\Options::class);
-        $this->optionsObjects['tnw_marketing_extended'] = $this->createMock(\TNW\Marketing\Model\Config\Source\Survey\ExtendedOptions::class);
-        $this->optionsObjects['tnw_marketing_payment'] = $this->createMock(\TNW\Marketing\Model\Config\Source\Survey\PaymentOptions::class);
+        /**
+         * prepare survey options
+         */
+        $this->optionsObjects['tnw_marketing'] = $objectManagerHelper->getObject(\TNW\Marketing\Model\Config\Source\Survey\Options::class);
+        $this->optionsObjects['tnw_marketing_extended'] = $objectManagerHelper->getObject(\TNW\Marketing\Model\Config\Source\Survey\ExtendedOptions::class);
+        $this->optionsObjects['tnw_marketing_payment'] = $objectManagerHelper->getObject(\TNW\Marketing\Model\Config\Source\Survey\PaymentOptions::class);
 
+        /**
+         * Email transport prepare
+         */
         $transportBuilder = $this->createMock(TransportBuilder::class);
         $transport = $this->createMock(\Magento\Framework\Mail\TransportInterface::class);
 
@@ -79,6 +99,9 @@ class SurveyTest extends TestCase
             ->method($this->anything())
             ->willReturnSelf();
 
+        /**
+         * store objects prepare
+         */
         $storeManager = $this->createMock(StoreManagerInterface::class);
         $store = $this->createMock(Store::class);
 
@@ -87,9 +110,18 @@ class SurveyTest extends TestCase
             ->method('getStore')
             ->willReturn($store);
 
+        /**
+         * create config mock
+         */
         $this->configResource = $this->createMock(ConfigInterface::class);
 
+        $this->_eventManager = $this->createMock(\Magento\Framework\Event\ManagerInterface::class);
 
+        $this->cacheTypeList = $this->createMock(TypeListInterface::class);
+
+        /**
+         * create our object to test
+         */
         $this->configSurvey = $objectManagerHelper->getObject(
             Survey::class,
             [
@@ -98,7 +130,9 @@ class SurveyTest extends TestCase
                 'optionsObjects' => $this->optionsObjects,
                 'transportBuilder' => $transportBuilder,
                 'storeManager' => $storeManager,
-                'configResource' => $this->configResource
+                'configResource' => $this->configResource,
+                '_eventManager' => $this->_eventManager,
+                'cacheTypeList' => $this->cacheTypeList
             ]
         );
 
@@ -128,11 +162,106 @@ class SurveyTest extends TestCase
 
     }
 
-    public function testProcessAnswer()
+    /**
+     * @dataProvider dataProviderGetTimestampByRequest
+     *
+     * @param $params
+     * @param $expectation
+     */
+    public function testGetTimestampByRequest($params, $currentDate, $expectedDate)
     {
+        $currentDate = strtotime($currentDate);
 
+        if (!is_null($expectedDate)) {
+            $expectedDate = strtotime($expectedDate);
+        }
+
+        $this->timezone->expects($this->any())
+            ->method('date')
+            ->will($this->returnCallback(function ($value = null) use ($currentDate) {
+
+                if (is_null($value)) {
+                    /** use defined date as current date */
+                    $value = $currentDate;
+                }
+                if (is_numeric($value)) {
+                    /** need it for the timestamp convert correct  */
+                    $value = '@' . $value;
+                }
+
+                return date_create($value);
+            }));
+
+        $this->assertEquals($expectedDate, $this->configSurvey->getTimestampByRequest($params));
     }
 
+    /**
+     * @return array
+     */
+    public function dataProviderGetTimestampByRequest()
+    {
+        return [
+            [ # case 1
+                ['snooze_survey' => 1],
+                '2018-07-20',
+                '2018-07-23'
+            ],
+            [ # case 2
+                ['type' => 'tnw_marketing', 'survey_result' => '0'],
+                '2018-07-20',
+                null
+            ],
+            [ # case 2
+                ['type' => 'tnw_marketing', 'survey_result' => '1'],
+                '2018-07-20',
+                '2018-07-27'
+            ]
+        ];
+    }
+
+    /**
+     * Just for fun to make sure we can control method calls
+     * @throws \ReflectionException
+     */
+    public function testProcessAnswer()
+    {
+        /** @var \Magento\User\Model\User|MockObject $user */
+        $user = $this->createMock(\Magento\User\Model\User::class);
+
+        $configSurvey = $this->createPartialMock(get_class($this->configSurvey), ['getTimestampByRequest', 'sendEmail', 'setStartDate']);
+
+        $configSurvey
+            ->expects($this->once())
+            ->method('getTimestampByRequest');
+
+        $configSurvey
+            ->expects($this->once())
+            ->method('sendEmail');
+
+        $configSurvey
+            ->expects($this->once())
+            ->method('setStartDate');
+
+        $this->cacheTypeList
+            ->expects($this->once())
+            ->method('cleanType');
+
+        $this->_eventManager
+            ->expects($this->once())
+            ->method('dispatch');
+
+        $reflection = new \ReflectionClass($configSurvey);
+
+        $property = $reflection->getProperty('cacheTypeList');
+        $property->setAccessible(true);
+        $property->setValue($configSurvey, $this->cacheTypeList);
+
+        $property = $reflection->getProperty('_eventManager');
+        $property->setAccessible(true);
+        $property->setValue($configSurvey, $this->_eventManager);
+
+        $configSurvey->processAnswer(['module' => 'tnw_marketing'], $user);
+    }
 
     /**
      * @dataProvider dataProviderStartDate
@@ -148,7 +277,6 @@ class SurveyTest extends TestCase
 
         self::assertEquals($date, $this->configSurvey->startDate($module));
     }
-
 
     /**
      * @return array
@@ -187,17 +315,15 @@ class SurveyTest extends TestCase
     /**
      * @param $params
      * @param $user
+     * @param $expectation
      * @throws \Magento\Framework\Exception\MailException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      *
      * @dataProvider dataProviderSendEmail
      */
-    public function testSendEmail($params, $user)
+    public function testSendEmail($params, $user, $expectation)
     {
-        $this->configSurvey->sendEmail(
-            $params,
-            $user
-        );
+        $this->assertEquals($expectation, $this->configSurvey->sendEmail($params, $user));
     }
 
     /**
@@ -208,7 +334,7 @@ class SurveyTest extends TestCase
         $user = $this->createMock(\Magento\User\Model\User::class);
 
         return [
-            [
+            [ # case 1
                 [
                     'survey_result' => 1,
                     'type' => 'tnw_marketing',
@@ -216,7 +342,15 @@ class SurveyTest extends TestCase
                     'comments' => 'comment text',
                     'module' => 'Module code',
                     'moduleName' => 'TNW Marketing'
-                ], $user]
+                ],
+                $user,
+                true
+            ],
+            [ # case 2
+                ['snooze_survey' => 1],
+                $user,
+                false
+            ]
         ];
     }
 
@@ -237,7 +371,7 @@ class SurveyTest extends TestCase
 
         $this->timezone->expects($this->any())
             ->method('date')
-            ->will($this->returnCallback(function($value = null) use ($currentDate) {
+            ->will($this->returnCallback(function ($value = null) use ($currentDate) {
 
                 if (is_null($value)) {
                     /** use defined date as current date */

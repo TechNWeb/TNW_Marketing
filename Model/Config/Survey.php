@@ -3,6 +3,7 @@
  * Copyright © 2018 TechNWeb, Inc. All rights reserved.
  * See TNW_LICENSE.txt for license details.
  */
+
 namespace TNW\Marketing\Model\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -45,36 +46,36 @@ class Survey
     /**
      * @var ScopeConfigInterface
      */
-    private $scopeConfig;
+    protected $scopeConfig;
 
     /**
      * @var ConfigInterface
      */
-    private $configResource;
+    protected $configResource;
 
     /**
      * @var TypeListInterface
      */
-    private $cacheTypeList;
+    protected $cacheTypeList;
 
     /**
      * @var TransportBuilder
      */
-    private $transportBuilder;
+    protected $transportBuilder;
     /**
      * @var StoreManagerInterface
      */
-    private $storeManager;
+    protected $storeManager;
 
     /**
      * @var WebsiteRepository
      */
-    private $websiteRepository;
+    protected $websiteRepository;
 
     /**
      * @var array
      */
-    private $optionsObjects;
+    protected $optionsObjects;
 
     /**
      * @var \Magento\Framework\Event\ManagerInterface
@@ -84,7 +85,7 @@ class Survey
     /**
      * @var TimezoneInterface
      */
-    private $timezone;
+    protected $timezone;
 
     /**
      * CanViewNotification constructor.
@@ -110,7 +111,8 @@ class Survey
         StoreManagerInterface $storeManager,
         WebsiteRepository $websiteRepository,
         $optionsObjects
-    ) {
+    )
+    {
         $this->scopeConfig = $scopeConfig;
         $this->configResource = $configResource;
         $this->cacheTypeList = $cacheTypeList;
@@ -156,6 +158,7 @@ class Survey
 
         return false;
     }
+
     /**
      * @param null $timestamp
      * @param null $module
@@ -206,12 +209,16 @@ class Survey
     /**
      * @param $params
      * @param $user
-     * @return $this
+     * @return bool
      * @throws \Magento\Framework\Exception\MailException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function sendEmail($params, $user)
     {
+        if (!empty($params['snooze_survey'])) {
+            return false;
+        }
+
         $surveyResult = $params['survey_result'];
 
         $transport = $this->transportBuilder
@@ -242,7 +249,30 @@ class Survey
 
         $transport->sendMessage();
 
-        return $this;
+        return true;
+    }
+
+    /**
+     * @param $params
+     * @return int|null
+     */
+    public function getTimestampByRequest($params)
+    {
+        $timestamp = null;
+
+        if (!empty($params['snooze_survey'])) {
+            $timeModifier = self::SNOOZE_TIME_MODIFIER;
+        } else {
+            $timeModifier = $this->getSurveyOptionsByType($params['type'])->getOptionTimeModifier($params['survey_result']);
+        }
+
+        if (!is_null($timeModifier)) {
+            $timestamp = $this->timezone->date()->modify($timeModifier)->getTimestamp();
+        } else {
+            $timestamp = null;
+        }
+
+        return $timestamp;
     }
 
     /**
@@ -253,18 +283,9 @@ class Survey
      */
     public function processAnswer($params, $user)
     {
-        if (!empty($params['snooze_survey'])) {
-            $timeModifier = self::SNOOZE_TIME_MODIFIER;
-        } else {
-            $timeModifier = $this->getSurveyOptionsByType($params['type'])->getOptionTimeModifier($params['survey_result']);
-            $this->sendEmail($params, $user);
-        }
+        $timestamp = $this->getTimestampByRequest($params);
 
-        if (!is_null($timeModifier)) {
-            $timestamp = $this->timezone->date()->modify($timeModifier)->getTimestamp();
-        } else {
-            $timestamp = null;
-        }
+        $this->sendEmail($params, $user);
 
         $this->setStartDate($params['module'], $timestamp);
 

@@ -10,10 +10,26 @@ use Magento\Framework\Data\OptionSourceInterface;
 /**
  * Options
  */
-abstract class Base implements OptionSourceInterface
+class Base implements OptionSourceInterface
 {
     /** @var array */
     public $optionsDetails = [];
+
+    /**
+     * @return array
+     */
+    public function getOptionsDetails()
+    {
+        return $this->optionsDetails;
+    }
+
+    /**
+     * @param array $optionsDetails
+     */
+    public function setOptionsDetails(array $optionsDetails)
+    {
+        $this->optionsDetails = $optionsDetails;
+    }
 
     /**
      * {@inheritdoc}
