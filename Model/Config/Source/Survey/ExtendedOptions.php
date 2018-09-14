@@ -14,7 +14,7 @@ class ExtendedOptions extends Base
 {
 
     /** @var array */
-    public static $optionsDetails = [
+    public $optionsDetails = [
         [
             'label' => 'I like everything this solution offers',
             'timemodifier' => '+6 month',

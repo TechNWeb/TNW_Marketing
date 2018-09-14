@@ -14,7 +14,7 @@ use TNW\Marketing\Model\Config\Source\Survey\Options\Base;
 class Options extends Base
 {
     /** @var array */
-    public static $optionsDetails = [
+    public $optionsDetails = [
         ['label' => 'Request an Upgrade'],
         [
             'label' => 'I am still evaluating',

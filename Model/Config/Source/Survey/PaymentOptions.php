@@ -14,7 +14,7 @@ use TNW\Marketing\Model\Config\Source\Survey\Options\Base;
 class PaymentOptions extends Base
 {
     /** @var array */
-    public static $optionsDetails = [
+    public $optionsDetails = [
         ['label' => 'I want to mPower my business'],
         [
             'label' => 'Contact me later',

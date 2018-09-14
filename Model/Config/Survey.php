@@ -16,11 +16,30 @@ use Magento\Framework\Mail\Template\TransportBuilder;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Store\Model\WebsiteRepository;
 
+/**
+ * Class Survey
+ * @package TNW\Marketing\Model\Config
+ */
 class Survey
 {
+    /**
+     *  config path template
+     */
     const START_DATE = '%s/survey/start_date';
+
+    /**
+     * template path
+     */
     const SURVEY_EMAIL_TEMPLATE = '%s_survey_email_template';
+
+    /**
+     * dummy value to avoid issues
+     */
     const DEFAULT_MODULE = 'tnw_marketing';
+
+    /**
+     * How far should we postpone survey when user just close popup
+     */
     const SNOOZE_TIME_MODIFIER = '+3 day';
 
     /**
@@ -51,6 +70,11 @@ class Survey
      * @var WebsiteRepository
      */
     private $websiteRepository;
+
+    /**
+     * @var array
+     */
+    private $optionsObjects;
 
     /**
      * @var \Magento\Framework\Event\ManagerInterface
@@ -137,7 +161,7 @@ class Survey
      * @param null $module
      * @return $this
      */
-    public function setStartDate($timestamp = null, $module = null)
+    public function setStartDate($module = null, $timestamp = null)
     {
         if (!$module) {
             $module = self::DEFAULT_MODULE;
@@ -242,7 +266,7 @@ class Survey
             $timestamp = null;
         }
 
-        $this->setStartDate($timestamp, $params['module']);
+        $this->setStartDate($params['module'], $timestamp);
 
         // clear the block html cache
         $this->cacheTypeList->cleanType('config');

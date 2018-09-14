@@ -13,7 +13,7 @@ use Magento\Framework\Data\OptionSourceInterface;
 abstract class Base implements OptionSourceInterface
 {
     /** @var array */
-    public static $optionsDetails = [];
+    public $optionsDetails = [];
 
     /**
      * {@inheritdoc}
@@ -28,11 +28,11 @@ abstract class Base implements OptionSourceInterface
      *
      * @return array
      */
-    public static function getOptionArray()
+    public function getOptionArray()
     {
 
         $options = [];
-        foreach (static::$optionsDetails as $optionDetails) {
+        foreach ($this->optionsDetails as $optionDetails) {
             $options[] = $optionDetails['label'];
         }
         return $options;
@@ -42,7 +42,7 @@ abstract class Base implements OptionSourceInterface
      *
      * @return array
      */
-    public static function getAllOption()
+    public function getAllOption()
     {
         $options = self::getOptionArray();
         array_unshift($options, ['value' => '', 'label' => '']);
@@ -54,7 +54,7 @@ abstract class Base implements OptionSourceInterface
      *
      * @return array
      */
-    public static function getAllOptions()
+    public function getAllOptions()
     {
         $res = [];
         foreach (self::getOptionArray() as $index => $value) {
@@ -69,9 +69,9 @@ abstract class Base implements OptionSourceInterface
      * @param int $optionId
      * @return string
      */
-    public static function getOptionText($optionId)
+    public function getOptionText($optionId)
     {
-        $options = self::getOptionArray();
+        $options = $this->getOptionArray();
         return isset($options[$optionId]) ? $options[$optionId] : null;
     }
 
@@ -81,7 +81,7 @@ abstract class Base implements OptionSourceInterface
      */
     public function getOptionTimeModifier($optionId)
     {
-        $timeModifier = isset(static::$optionsDetails[$optionId]['timemodifier'])? static::$optionsDetails[$optionId]['timemodifier']: null;
+        $timeModifier = isset($this->optionsDetails[$optionId]['timemodifier'])? $this->optionsDetails[$optionId]['timemodifier']: null;
 
         return $timeModifier;
     }
