@@ -241,6 +241,11 @@ jobs:
             cd /var/www/html/magento2-$MAGENTO_VERSION
             ./bin/magento setup:di:compile
       - run:
+          name: Run Unit Test
+          command: |
+            cd /var/www/html/magento2-$MAGENTO_VERSION
+            ./bin/magento dev:tests:run -c'--filter=TNW' unit
+      - run:
           name: Installing Magento EE
           command: |
             cd /var/www/html/
@@ -277,7 +282,7 @@ jobs:
       - run:
           name: Run Unit Test
           command: |
-            cd /var/www/html/magento2-$MAGENTO_VERSION
+            cd /var/www/html/magento2-ee-$MAGENTO_VERSION
             ./bin/magento dev:tests:run -c'--filter=TNW' unit
   m224_php71:
     <<: *php71-base
