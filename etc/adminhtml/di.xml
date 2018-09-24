@@ -1,0 +1,12 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="TNW\Marketing\Model\Config\Survey">
+        <arguments>
+            <argument name="optionsObjects" xsi:type="array">
+                <item name="tnw_marketing" xsi:type="object">TNW\Marketing\Model\Config\Source\Survey\Options</item>
+                <item name="tnw_marketing_extended" xsi:type="object">TNW\Marketing\Model\Config\Source\Survey\ExtendedOptions</item>
+                <item name="tnw_marketing_payment" xsi:type="object">TNW\Marketing\Model\Config\Source\Survey\PaymentOptions</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

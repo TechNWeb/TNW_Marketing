@@ -9,16 +9,16 @@ namespace TNW\Marketing\Model\Config\Source\Survey;
 use TNW\Marketing\Model\Config\Source\Survey\Options\Base;
 
 /**
- * Options
+ * PaymentOptions
  */
-class Options extends Base
+class PaymentOptions extends Base
 {
     /** @var array */
     public $optionsDetails = [
-        ['label' => 'Request an Upgrade'],
+        ['label' => 'I want to mPower my business'],
         [
-            'label' => 'I am still evaluating',
-            'timemodifier' => '+7 day',
+            'label' => 'Contact me later',
+            'timemodifier' => '+1 month',
         ],
         ['label' => 'I am happy with the FREE version'],
         ['label' => 'I am a system integrator and just testing this out']

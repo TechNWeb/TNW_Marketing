@@ -6,5 +6,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
-    <template id="tnw__marketing_survey_email_template" label="[Survey] Magento2 + QuickBooks Feedback" file="survey_form.html" type="html" module="TNW_Marketing" area="adminhtml"/>
+    <template id="tnw_marketing_survey_email_template" label="[Survey] Magento2 Marketing Feedback" file="survey_form.html" type="html" module="TNW_Marketing" area="adminhtml"/>
+    <template id="tnw_marketing_extended_survey_email_template" label="[Survey] Magento2 Business Marketing Feedback" file="survey_form.html" type="html" module="TNW_Marketing" area="adminhtml"/>
+    <template id="tnw_marketing_payment_survey_email_template" label="[Survey] Magento2 Payment Marketing Feedback" file="survey_form.html" type="html" module="TNW_Marketing" area="adminhtml"/>
 </config>
