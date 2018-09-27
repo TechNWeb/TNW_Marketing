@@ -11,41 +11,37 @@ define([
     return Select.extend({
         defaults: {
             elementTmpl: 'TNW_Marketing/form/element/rating',
+            hovered: 0
         },
-
         mouseOver: function(data, event) {
-            var onStar = parseInt(data.value, 10);
-
-            // Now highlight all the stars that's not after the current hovered star
-            $(event.currentTarget).parent().children('li.star').each(function(e){
-                if (e < onStar) {
-                    $(this).addClass('hover');
-                }
-                else {
-                    $(this).removeClass('hover');
-                }
-            });
+             this.hovered = parseInt(data.value, 10);
+             this.value.valueHasMutated();
+        },
+        mouseOut: function(data, event) {
+            this.hovered = 0;
+            this.value.valueHasMutated();
         },
 
-        mouseOut: function(data, event) {
-            $(event.currentTarget).parent().children('li.star').each(function(e){
-                $(this).removeClass('hover');
-            });
+        checkIsSelected: function(value) {
+
+            value = parseInt(value, 10);
+            var definedValue = parseInt(this.value(), 0);
+
+            return (value <= definedValue);
+        },
+
+        checkIsHovered: function(value) {
+
+            value = parseInt(value, 10);
+            var hoveredValue = parseInt(this.hovered, 0);
+
+            return (value <= hoveredValue);
         },
 
         mouseClick: function(data, event) {
             var onStar = parseInt(data.value, 10); // The star currently selected
-            var stars = $(event.currentTarget).parent().children('li.star');
 
-            for (var i = 0; i < stars.length; i++) {
-                $(stars[i]).removeClass('selected');
-            }
-
-            for (i = 0; i < onStar; i++) {
-                $(stars[i]).addClass('selected');
-            }
-
-            this.value(onStar);
+             this.value(onStar);
         }
     });
 });
