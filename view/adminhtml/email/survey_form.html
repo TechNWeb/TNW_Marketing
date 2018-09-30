@@ -4,7 +4,6 @@
  * See TNW_LICENSE.txt for license details.
  */
 -->
-<!--@subject {{trans "[Survey] Magento2 + QuickBooks Feedback"}} @-->
 <!--@vars {
 "var comment":"Comment",
 "var email":"Sender Email",
@@ -12,8 +11,11 @@
 "var surveyResult":"Sender Survey Result",
 "var websites":"Sender Websites",
 "var rating":"Sender Rating"
+"var module":"module name"
 } @-->
+<!--@subject {{trans "[Survey] %moduleName Feedback" moduleName=$moduleName}} @-->
 
+<p><b>{{trans "Module name"}}:</b> {{var module}}</p>
 <p><b>{{trans "Name"}}:</b> {{var name}}</p>
 <p><b>{{trans "Email"}}:</b> {{var email}}</p>
 <p><b>{{trans "Survey Result"}}:</b> {{var surveyResult}}</p>
