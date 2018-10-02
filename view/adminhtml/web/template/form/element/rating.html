@@ -2,8 +2,9 @@
     <ul id='stars' data-bind="foreach: options">
         <li class='star' data-bind="
             attr: {title: label, 'data-value': value, 'data-index': $index},
-            event: {mouseover: $parent.mouseOver, mouseout: $parent.mouseOut},
-            click: $parent.mouseClick.bind($parent)
+            event: {mouseover: $parent.mouseOver.bind($parent), mouseout: $parent.mouseOut.bind($parent)},
+            click: $parent.mouseClick.bind($parent),
+            css: {hover: $parent.checkIsHovered(value), selected: $parent.checkIsSelected(value)}
         ">
             <i class='fa fa-star fa-fw'></i>
         </li>
