@@ -273,8 +273,9 @@ jobs:
       - run:
           name: Compile the Code
           command: |
-            cd /var/www/html/magento2-ee-$MAGENTO_VERSION
-            ./bin/magento setup:di:compile
+          cd /var/www/html/magento2-ee-$MAGENTO_VERSION
+          ./bin/magento setup:di:compile
+          php bin/magento deploy:mode:set developer
       - run:
           name: Run Magento Coding Standard
           command: |
