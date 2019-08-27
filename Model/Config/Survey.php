@@ -243,7 +243,7 @@ class Survey
                 'name' => $user->getName(),
                 'email' => $user->getEmail(),
             ])
-            ->addTo('sales@powersync.biz', 'Sales PowerSync')
+            ->addTo('marketing@powersync.biz', 'Marketing PowerSync')
             ->setReplyTo($user->getEmail(), $user->getName())
             ->getTransport();
 
