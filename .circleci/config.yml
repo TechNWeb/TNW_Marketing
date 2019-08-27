@@ -208,7 +208,7 @@ jobs:
           command: |
             cd /var/www/html/
             git clone https://github.com/magento/marketplace-eqp magento-coding-standard
-          cd magento-coding-standard && git checkout -q "2.0.1"
+            cd magento-coding-standard && git checkout -q "2.0.1"
             composer install
       - run:
           name: Wait for DB
