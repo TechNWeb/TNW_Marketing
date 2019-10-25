@@ -11,8 +11,8 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\App\Config\ConfigResource\ConfigInterface;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\App\Area;
+use Magento\Framework\Module\ModuleListInterface;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
-
 use Magento\Framework\Mail\Template\TransportBuilder;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Store\Model\WebsiteRepository;
@@ -86,6 +86,10 @@ class Survey
      * @var TimezoneInterface
      */
     protected $timezone;
+    /**
+     * @var ModuleListInterface
+     */
+    private $moduleList;
 
     /**
      * CanViewNotification constructor.
@@ -110,6 +114,7 @@ class Survey
         TransportBuilder $transportBuilder,
         StoreManagerInterface $storeManager,
         WebsiteRepository $websiteRepository,
+        ModuleListInterface $moduleList,
         $optionsObjects
     )
     {
@@ -118,12 +123,11 @@ class Survey
         $this->cacheTypeList = $cacheTypeList;
         $this->_eventManager = $eventManager;
         $this->timezone = $timezone;
-
         $this->transportBuilder = $transportBuilder;
         $this->storeManager = $storeManager;
         $this->websiteRepository = $websiteRepository;
-
         $this->optionsObjects = $optionsObjects;
+        $this->moduleList = $moduleList;
     }
 
     /**
@@ -141,6 +145,24 @@ class Survey
     }
 
     /**
+     * @param $module
+     * @return bool|null
+     */
+    private function resolver($module): bool
+    {
+        $isModuleInstall = null;
+        switch ($module):
+            case 'tnw_module-authorizenetcim':
+                $isModuleInstall = $this->moduleList->getOne('TNW_Subscriptions');
+                break;
+            case 'tnw_module-stripe':
+                $isModuleInstall = $this->moduleList->getOne('TNW_Subscriptions');
+                break;
+        endswitch;
+        return (bool)$isModuleInstall;
+    }
+
+    /**
      * @param null $module
      * @return bool
      */
@@ -150,7 +172,10 @@ class Survey
         if (empty($startDate)) {
             return false;
         }
-
+        $isInstalled = $this->resolver($module);
+        if ($isInstalled) {
+            return false;
+        }
         $startTime = $this->timezone->date($startDate);
         if ($this->timezone->date()->diff($startTime)->format('%r%a') <= 0) {
             return true;
