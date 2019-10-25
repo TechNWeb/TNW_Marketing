@@ -148,7 +148,7 @@ class Survey
      * @param $module
      * @return bool|null
      */
-    private function resolver($module): bool
+    private function resolver($module = null): bool
     {
         $isModuleInstall = null;
         switch ($module):
