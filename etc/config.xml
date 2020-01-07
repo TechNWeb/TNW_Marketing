@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <tnwsforce_general>
+            <general>
+                <upsells>
+                    <tnw_module_authorizenetcim>Learn More</tnw_module_authorizenetcim>
+                    <tnw_module_stripe>Learn More</tnw_module_stripe>
+                    <tnw_subscriptions>Learn More</tnw_subscriptions>
+                    <tnw_quickbooksbasic>Learn More</tnw_quickbooksbasic>
+                </upsells>
+            </general>
+        </tnwsforce_general>
+    </default>
+</config>

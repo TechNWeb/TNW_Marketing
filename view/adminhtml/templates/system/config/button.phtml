@@ -1,0 +1,23 @@
+<?php
+/** @var $block Item */
+
+use TNW\Marketing\Block\System\Config\Form\Field\Upsells\Item; ?>
+<div class="title">
+    <?= $block->getTitle() ?>
+</div>
+
+<div class="title">
+    <img src="<?= $block->escapeUrl($block->getViewFileUrl('Magento_Captcha::reload.png')) ?>"/>
+</div>
+
+<div class="description">
+    <?= $block->getDescription() ?>
+</div>
+
+<div class="pp-buttons-container">
+    <button onclick="window.open(
+            '<?= $block->escapeUrl($block->getButtonUrl()) ?>'); return false;"
+            class="action-primary" type="button" id="<?= $block->escapeHtml($block->getHtmlId()) ?>">
+        <span><span><span><?= $block->escapeHtml($block->getButtonLabel()) ?></span></span></span>
+    </button>
+</div>
