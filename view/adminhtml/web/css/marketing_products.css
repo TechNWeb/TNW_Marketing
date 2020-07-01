@@ -1,0 +1,64 @@
+/**
+* Copyright © 2018 TechNWeb, Inc. All rights reserved.
+* See TNW_LICENSE.txt for license details.
+*/
+
+.wrapper-marketing .products {
+    text-align: center;
+}
+
+.wrapper-marketing .label-products {
+    padding: 15px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.wrapper-marketing .products > div{
+    display: inline-block;
+    max-width: 20%;
+    text-align: center;
+    vertical-align: top;
+    border: 1px solid;
+    padding: 5px;
+    margin: 0 5px;
+}
+
+.wrapper-marketing .products img{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.wrapper-marketing .products .image-wrapper{
+    height: 150px;
+    display: inline-block;
+    line-height: 150px;
+}
+
+.wrapper-marketing .products .product-label{
+    padding: 10px 0;
+    font-weight: bold;
+}
+
+.wrapper-marketing .products .pay-link{
+    height: 40px;
+}
+
+.wrapper-marketing .products .pay-link span{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.wrapper-marketing .products .pay-link a{
+    border: 1px solid #333;
+    background-color: #ff8116;
+    display: inline-block;
+    padding: 5px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #000;
+    box-shadow: 2px 2px 0px 0px;
+}
+
+.wrapper-marketing .products .description{
+    min-height: 120px;
+}
