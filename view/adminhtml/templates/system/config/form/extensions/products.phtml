@@ -2,7 +2,7 @@
     /** @var $block TNW\Marketing\Block\System\Config\Form\Extensions\Products */
     $products = $block->getProducts();
 ?>
-<?php if (count($products)): ?>
+<?php if (!empty($products)): ?>
     <td colspan='4'>
         <div class="container wrapper-marketing">
             <div class="row">
