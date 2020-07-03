@@ -1,8 +1,4 @@
 <?php
-/**
- * Copyright © 2018 TechNWeb, Inc. All rights reserved.
- * See TNW_LICENSE.txt for license details.
- */
 namespace TNW\Marketing\Block\System\Config\Form\Extensions;
 
 use Magento\Backend\Block\Template\Context;
@@ -44,8 +40,7 @@ class Products extends \Magento\Config\Block\System\Config\Form\Field
         ScopeConfigInterface $scopeConfig,
         ModuleList $moduleList,
         array $data = []
-    )
-    {
+    ) {
         $this->scopeConfig = $scopeConfig;
         $this->moduleListArray = $moduleList->getNames();
         parent::__construct($context, $data);
@@ -59,7 +54,7 @@ class Products extends \Magento\Config\Block\System\Config\Form\Field
      */
     public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
-        return $this->_decorateRowHtml($element, "<td colspan='4'>" . $this->toHtml() . '</td>');
+        return $this->_decorateRowHtml($element, $this->toHtml());
     }
 
     /**
