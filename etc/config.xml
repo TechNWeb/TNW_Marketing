@@ -10,6 +10,13 @@
                     <pay_label>Learn More</pay_label>
                     <pay_url>https://powersync.biz/subscription-management-solution</pay_url>
                 </TNW_Subscriptions>
+                <TNW_Salesforce>
+                    <label>Salesforce integration for Magento</label>
+                    <img_name>salesforce_integration.png</img_name>
+                    <description>Connects your Magento store with your Salesforce CRM, integrating all of your store data</description>
+                    <pay_label>Learn More</pay_label>
+                    <pay_url>https://powersync.biz/magento-and-salesforce-integration</pay_url>
+                </TNW_Salesforce>
                 <TNW_QuickbooksBasic>
                     <label>QuickBooks Online</label>
                     <img_name>quickbooks.png</img_name>
