@@ -1,0 +1,31 @@
+<?php
+    /** @var $block TNW\Marketing\Block\System\Config\Form\Extensions\Products */
+    $products = $block->getProducts();
+?>
+<?php if (!empty($products)): ?>
+    <td colspan='4'>
+        <div class="container wrapper-marketing">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="label-products">Other products built by PowerSync</div>
+                </div>
+            </div>
+            <div class="row products">
+                <?php foreach ($products as $moduleName => $product): ?>
+                    <div class="col-sm-3">
+                        <p class="product-label"><?= $product['label']; ?></p>
+                        <p class="image-wrapper">
+                            <img src="<?= $block->getViewFileUrl('TNW_Marketing::images/products/' . $product['img_name']); ?>" alt="<?= $product['label']; ?>">
+                        </p>
+                        <p class="description"><?= $product['description']; ?></p>
+                        <?php if ($block->moduleIsInstalled($moduleName)): ?>
+                            <p class="pay-link"><span>Installed!</span></p>
+                        <?php else: ?>
+                            <p class="pay-link"><a href="<?= $product['pay_url']; ?>" target="_blank"><?= $product['pay_label']; ?></a> </p>
+                        <?php endif;?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </td>
+<?php endif; ?>
