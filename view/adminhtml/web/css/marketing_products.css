@@ -10,7 +10,7 @@
 
 .wrapper-marketing .products > div{
     display: inline-block;
-    max-width: 20%;
+    width: 235px;
     text-align: center;
     vertical-align: top;
     border: 1px solid #eeeeee;
