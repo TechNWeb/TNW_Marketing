@@ -16,7 +16,7 @@
     border: 1px solid #eeeeee;
     border-radius: 5px;
     padding: 5px;
-    margin: 0 5px;
+    margin: 20px 5px 0 5px;
 
 }
 
@@ -32,6 +32,7 @@
 }
 
 .wrapper-marketing .products .product-label{
+    color: #444444;
     padding: 10px 0;
     font-weight: bold;
 }
@@ -41,6 +42,7 @@
 }
 
 .wrapper-marketing .products .pay-link span{
+    color: #AAAAAA;
     font-size: 1.5em;
     font-weight: 600;
 }

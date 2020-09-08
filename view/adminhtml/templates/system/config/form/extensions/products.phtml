@@ -15,7 +15,9 @@
                     <div class="col-sm-3">
                         <p class="product-label"><?= $product['label']; ?></p>
                         <p class="image-wrapper">
-                            <img src="<?= $block->getViewFileUrl('TNW_Marketing::images/products/' . $product['img_name']); ?>" alt="<?= $product['label']; ?>">
+                            <a href="<?= $product['pay_url']; ?>" target="_blank">
+                                <img src="<?= $block->getViewFileUrl('TNW_Marketing::images/products/' . $product['img_name']); ?>" alt="<?= $product['label']; ?>">
+                            </a>
                         </p>
                         <p class="description"><?= $product['description']; ?></p>
                         <?php if ($block->moduleIsInstalled($moduleName)): ?>

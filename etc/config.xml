@@ -4,35 +4,35 @@
         <marketing>
             <products>
                 <TNW_Subscriptions>
-                    <label>mPower for Magento</label>
+                    <label>Subscription &amp; Recurring Payment Solution</label>
                     <img_name>subscription-management.png</img_name>
                     <description>Manage all your subscription and recurring transaction needs in Magento</description>
                     <pay_label>Learn More</pay_label>
                     <pay_url>https://powersync.biz/subscription-management-solution</pay_url>
                 </TNW_Subscriptions>
                 <TNW_Salesforce>
-                    <label>Salesforce integration for Magento</label>
+                    <label>Magento and Salesforce CRM Integration</label>
                     <img_name>salesforce_integration.png</img_name>
                     <description>Connects your Magento store with your Salesforce CRM, integrating all of your store data</description>
                     <pay_label>Learn More</pay_label>
                     <pay_url>https://powersync.biz/magento-and-salesforce-integration</pay_url>
                 </TNW_Salesforce>
                 <TNW_QuickbooksBasic>
-                    <label>QuickBooks Online</label>
+                    <label>Magento and QuickBooks Online Integration</label>
                     <img_name>quickbooks.png</img_name>
                     <description>Close the gap to ensure complete and accurate accounting when using QuickBooks Online and Magento 2 platform</description>
                     <pay_label>Try it for FREE</pay_label>
                     <pay_url>https://powersync.biz/free-integrations-for-magento2?products=QuickBooks%20Integration%20Starter%20Pack</pay_url>
                 </TNW_QuickbooksBasic>
                 <TNW_Stripe>
-                    <label>Stripe Integration</label>
+                    <label>Magento and Stripe Payment Gateway Integration</label>
                     <img_name>stripe.png</img_name>
                     <description>Accept credit card payments using Stripe payment gateway. Allow customers to save cards for their next purchase.</description>
                     <pay_label>Learn More</pay_label>
                     <pay_url>https://powersync.biz/free-integrations-for-magento2?products=Stripe%20Payment%20Gateway%20Integration</pay_url>
                 </TNW_Stripe>
                 <TNW_AuthorizeCim>
-                    <label>Authorize.Net CIM</label>
+                    <label>Magento and Authorize.Net Payment Gateway Integration</label>
                     <img_name>authorize.png</img_name>
                     <description>Accept credit card payments using Authorize.Net payment gateway. Allow customers to save cards for their next purchase.</description>
                     <pay_label>Try it for FREE</pay_label>
