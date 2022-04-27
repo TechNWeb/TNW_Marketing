@@ -1,4 +1,11 @@
-<?php $websites = $block->getWebsites() ?>
+<?php
+/**
+ * Copyright © 2022 TechNWeb, Inc. All rights reserved.
+ * See TNW_LICENSE.txt for license details.
+ */
+
+$websites = $block->getWebsites();
+?>
 <?php if (!empty($websites)): ?>
 <ul>
     <?php /** @var \Magento\Store\Model\Website $website */ foreach ($websites as $website): ?>

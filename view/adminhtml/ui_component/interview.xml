@@ -1,10 +1,11 @@
 <!--
+  ~ Copyright © 2022 TechNWeb, Inc. All rights reserved.
+  ~ See TNW_LICENSE.txt for license details.
+  -->
+
+<!--
 <?xml version="1.0" encoding="UTF-8"?>
 &lt;!&ndash;
-/**
- * Copyright © 2018 TechNWeb, Inc. All rights reserved.
- * See TNW_LICENSE.txt for license details.
- */
 &ndash;&gt;
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" class="TNW\Marketing\Ui\Component\Form" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">

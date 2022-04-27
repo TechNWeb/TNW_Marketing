@@ -1,9 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * Created by PhpStorm.
- * User: eermolaev
- * Date: 14.09.18
- * Time: 10:59
+ * Copyright © 2022 TechNWeb, Inc. All rights reserved.
+ * See TNW_LICENSE.txt for license details.
  */
 
 namespace TNW\Marketing\Test\Unit\Model\Config\Source;
