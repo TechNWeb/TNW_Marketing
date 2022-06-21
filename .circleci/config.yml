@@ -146,7 +146,6 @@ jobs:
           MYSQL_USER: mage
           MYSQL_DATABASE: magento
           MYSQL_ROOT_PASSWORD: docker
-
   m235-open_source-php73:
     <<: *base-image
     docker:
@@ -160,7 +159,6 @@ jobs:
           MYSQL_USER: mage
           MYSQL_DATABASE: magento
           MYSQL_ROOT_PASSWORD: docker
-
   magento-coding-standard:
     docker:
       - image: powersync/magento-builds:m234-commerce-php72
@@ -293,6 +291,7 @@ jobs:
                 --data "$POST_DATA"
 
             done
+
   m244-commerce: &base-image244
     <<: *base-image
     docker:
@@ -592,28 +591,28 @@ workflows:
           filters:
             branches:
               only: /.*-2\.4\.4/
-      - magento-coding-standard-2.4.4:
+      - magento-coding-standard-244:
           context: powersync
           filters:
             branches:
               only: master-2.4.4
-      - deploy-2.4.4:
-          context: powersync
-          requires:
-            - tag-release-2.4.4
-      - tag-release-2.4.4:
-          context: powersync
-          requires:
-            - m244-commerce
-            - magento-coding-standard-2.4.4
-          filters:
-            branches:
-              only: master-2.4.4
-      - check-composer-installation-2.4.4:
+#      - deploy-244:
+#          context: powersync
+#          requires:
+#            - tag-release-2.4.4
+#      - tag-release-2.4.4:
+#          context: powersync
+#          requires:
+#            - m244-commerce
+#            - magento-coding-standard-2.4.4
+#          filters:
+#            branches:
+#              only: master-2.4.4
+      - check-composer-installation-244:
           context: powersync
           requires:
             - deploy-2.4.4
-      - update-wiki-2.4.4:
+      - update-wiki-244:
           context: powersync
           requires:
             - check-composer-installation-2.4.4
