@@ -339,7 +339,15 @@ jobs:
                 set -e
                 if test -z "$branchExists"
                   then
-                    COMPOSER_BRANCH="${COMPOSER_BRANCH}develop"
+                    set +e
+                    branchExists=(`composer info -a tnw/$moduleNameLower|grep "versions : .*dev-master-2\.4\.4"`)
+                    set -e
+                    if test -z "$branchExists"
+                      then
+                        COMPOSER_BRANCH="${COMPOSER_BRANCH}develop"
+                      else
+                        COMPOSER_BRANCH="${COMPOSER_BRANCH}master-2.4.4"
+                      fi
                   else
                     COMPOSER_BRANCH="${COMPOSER_BRANCH}develop-2.4.4"
                 fi
