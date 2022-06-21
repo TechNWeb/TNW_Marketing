@@ -292,7 +292,7 @@ jobs:
 
             done
 
-  m244-commerce: &base-image244
+  m244-commerce-php81: &base-image244
     <<: *base-image
     docker:
       - image: powersync/magento-builds:m244-commerce-php815-elastic716
@@ -327,7 +327,7 @@ jobs:
               moduleNameLower=(`echo $moduleName| tr '[:upper:]' '[:lower:]'`)
 
               set +e
-                branchExists=(`composer info -a tnw/$moduleNameLower|grep "versions : .*dev-$CIRCLE_BRANCH[^0-9a-zA-Z-]"`)
+                branchExists=(`composer info -a tnw/$moduleNameLower|grep "versions : .*dev-$CIRCLE_BRANCH"`)
               set -e
 
               COMPOSER_BRANCH="dev-"
@@ -339,15 +339,7 @@ jobs:
                 set -e
                 if test -z "$branchExists"
                   then
-                    set +e
-                    branchExists=(`composer info -a tnw/$moduleNameLower|grep "versions : .*dev-master-2\.4\.4"`)
-                    set -e
-                    if test -z "$branchExists"
-                      then
-                        COMPOSER_BRANCH="${COMPOSER_BRANCH}develop"
-                      else
-                        COMPOSER_BRANCH="${COMPOSER_BRANCH}master-2.4.4"
-                      fi
+                    COMPOSER_BRANCH="${COMPOSER_BRANCH}develop"
                   else
                     COMPOSER_BRANCH="${COMPOSER_BRANCH}develop-2.4.4"
                 fi
@@ -615,7 +607,7 @@ workflows:
               ignore: /.*-2\.4\.4/
               only: master
 
-      - m244-commerce:
+      - m244-commerce-php81:
           context: powersync
           filters:
             branches:
@@ -632,7 +624,7 @@ workflows:
       - tag-release-244:
           context: powersync
           requires:
-            - m244-commerce
+            - m244-commerce-php81
             - magento-coding-standard-244
           filters:
             branches:
