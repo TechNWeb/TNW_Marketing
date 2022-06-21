@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  deploy:
+  deploy: &base-deploy
     machine:
       enabled: true
     steps:
@@ -9,7 +9,7 @@ jobs:
           name: Deploy Over SSH
           command: |
             ssh $SSH_USER@$SSH_HOST "./release"
-  tag-release:
+  tag-release: &base-tag-release
     machine:
       enabled: true
     working_directory: ~/tnw_extension/
@@ -509,26 +509,9 @@ jobs:
             done
 
   deploy-244:
-    machine:
-      enabled: true
-    steps:
-      - run:
-          name: Deploy Over SSH
-          command: |
-            ssh $SSH_USER@$SSH_HOST "./release"
+    <<: *base-deploy
   tag-release-244:
-    machine:
-      enabled: true
-    working_directory: ~/tnw_extension/
-    steps:
-      - checkout
-      - run:
-          name: Tag new release
-          command: |
-            cd ~/tnw_extension/
-            cd .circleci
-            chmod +x git_release.sh
-            ./git_release.sh
+    <<: *base-tag-release
 workflows:
   version: 2
 
