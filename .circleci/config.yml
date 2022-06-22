@@ -216,7 +216,7 @@ jobs:
           command: |
             cd /var/www/html/magento/
             for package in $PACKAGES_NAME; do
-              NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions'|grep 2.7.\[0-9\]\*|head -n1`);
+              NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions[]'|grep 2.7.\[0-9\]\*|head -n1`);
               composer require $package=$NEW_MODULE_VERSION
             done
 
@@ -253,7 +253,7 @@ jobs:
 
             for package in $PACKAGES_NAME; do
 
-              NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions'|grep 2.7.\[0-9\]\*|head -n1`);
+              NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions[]'|grep 2.7.\[0-9\]\*|head -n1`);
               PAGE_TITLE='_'
               PAGE_TITLE+=`echo "$package" | sed 's/\//_/'`
 
@@ -422,7 +422,7 @@ jobs:
               then
                 NEW_MODULE_VERSION=$(grep -o '^ *"version": *"[0-9\.]*"' ~/tnw_extension/composer.json | awk '{print $2}' | sed -e 's/"\(.*\)"/\1/g')
               else
-                NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions'|grep 2.8.\[0-9\]\*|head -n1`);
+                NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions[]'|grep 2.8.\[0-9\]\*|head -n1`);
               fi
               composer require $package=$NEW_MODULE_VERSION
             done
@@ -466,7 +466,7 @@ jobs:
               then
                 NEW_MODULE_VERSION=$(grep -o '^ *"version": *"[0-9\.]*"' ~/project/composer.json | awk '{print $2}' | sed -e 's/"\(.*\)"/\1/g')
               else
-                NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions'|grep 2.8.\[0-9\]\*|head -n1`);
+                NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions[]'|grep 2.8.\[0-9\]\*|head -n1`);
               fi
 
               PAGE_TITLE='_'
@@ -588,11 +588,11 @@ workflows:
               ignore: /.*-2\.4\.4/
               only: master
 
-      - m244-commerce-php81:
-          context: powersync
-          filters:
-            branches:
-              only: /.*-2\.4\.4/
+      #      - m244-commerce-php81:
+      #          context: powersync
+      #          filters:
+      #            branches:
+      #              only: /.*-2\.4\.4/
       - magento-coding-standard-244:
           context: powersync
           filters:
@@ -602,22 +602,28 @@ workflows:
           context: powersync
           requires:
             - tag-release-244
+          filters:
+            branches:
+              only: master-2.4.4
       - tag-release-244:
           context: powersync
           requires:
-            - m244-commerce-php81
+            #            - m244-commerce-php81
             - magento-coding-standard-244
           filters:
             branches:
               only: master-2.4.4
-      - check-composer-installation-244:
-          context: powersync
-          requires:
-            - deploy-244
+      #      - check-composer-installation-244:
+      #          context: powersync
+      #          requires:
+      #            - deploy-244
+      #          filters:
+      #            branches:
+      #              only: master-2.4.4
       - update-wiki-244:
           context: powersync
           requires:
-            - check-composer-installation-244
+          #            - check-composer-installation-244
           filters:
             branches:
               only: master-2.4.4
