@@ -380,7 +380,7 @@ jobs:
       - run:
           name: Run Magento Coding Standard
           command: |
-            /var/www/html/magento-coding-standard/vendor/bin/phpcs $CIRCLE_WORKING_DIRECTORY --standard=MEQP2 --severity=10 --extensions=php,phtml
+            /var/www/html/magento-coding-standard/vendor/bin/phpcs $CIRCLE_WORKING_DIRECTORY --standard=Magento2Framework --severity=10 --extensions=php,phtml
   check-composer-installation-244:
     <<: *base-image244
     steps:
@@ -522,13 +522,11 @@ workflows:
           filters:
             branches:
               ignore: /.*-2\.4\.4/
-              only: /.*/
       - m234-open_source-php72:
           context: powersync
           filters:
             branches:
               ignore: /.*-2\.4\.4/
-              only: /.*/
       - m235-commerce-php73:
           context: powersync
           filters:
