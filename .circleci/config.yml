@@ -242,6 +242,9 @@ jobs:
       - run:
           name: Prepare for wiki update
           command: |
+            cd ~
+            curl -sS https://getcomposer.org/installer -o composer-setup.php
+            sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
             mkdir -p ~/.composer/
             echo '{}'>~/.composer/composer.json
             composer config -g http-basic.dist.powersync.biz $TECHWEB_REPO_LOGIN $TECHNWEB_REPO_PASSWORD
@@ -450,6 +453,9 @@ jobs:
       - run:
           name: Prepare for wiki update
           command: |
+            cd ~
+            curl -sS https://getcomposer.org/installer -o composer-setup.php
+            sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
             mkdir -p ~/.composer/
             echo '{}'>~/.composer/composer.json
             composer config -g http-basic.dist.powersync.biz $TECHWEB_REPO_LOGIN $TECHNWEB_REPO_PASSWORD
@@ -593,43 +599,42 @@ workflows:
               ignore: /.*-2\.4\.4/
               only: master
 
-      #      - m244-commerce-php81:
-      #          context: powersync
-      #          filters:
-      #            branches:
-      #              only: /.*-2\.4\.4/
-      - magento-coding-standard-244:
-          context: powersync
-          filters:
-            branches:
-              only: master-2.4.4
-      - deploy-244:
-          context: powersync
-          requires:
-            - tag-release-244
-          filters:
-            branches:
-              only: master-2.4.4
-      - tag-release-244:
-          context: powersync
-          requires:
-            #            - m244-commerce-php81
-            - magento-coding-standard-244
-          filters:
-            branches:
-              only: master-2.4.4
-      #      - check-composer-installation-244:
-      #          context: powersync
-      #          requires:
-      #            - deploy-244
-      #          filters:
-      #            branches:
-      #              only: master-2.4.4
+#      - m244-commerce-php81:
+#          context: powersync
+#          filters:
+#            branches:
+#              only: /.*-2\.4\.4/
+#      - magento-coding-standard-244:
+#          context: powersync
+#          filters:
+#            branches:
+#              only: master-2.4.4
+#      - deploy-244:
+#          context: powersync
+#          requires:
+#            - tag-release-244
+#          filters:
+#            branches:
+#              only: master-2.4.4
+#      - tag-release-244:
+#          context: powersync
+#          requires:
+#            - m244-commerce-php81
+#            - magento-coding-standard-244
+#          filters:
+#            branches:
+#              only: master-2.4.4
+#      - check-composer-installation-244:
+#          context: powersync
+#          requires:
+#            - deploy-244
+#          filters:
+#            branches:
+#              only: master-2.4.4
       - update-wiki-244:
           context: powersync
           requires:
-            - deploy-244
-          #            - check-composer-installation-244
+#            - check-composer-installation-244
           filters:
             branches:
               only: master-2.4.4
