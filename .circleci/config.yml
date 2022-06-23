@@ -235,66 +235,6 @@ jobs:
             php bin/magento setup:di:compile
             php bin/magento deploy:mode:set developer
 
-  update-wiki:
-    docker:
-      - image: circleci/php:7.1-apache-stretch-node-browsers
-    steps:
-      - run:
-          name: Prepare for wiki update
-          command: |
-            cd ~
-            curl -sS https://getcomposer.org/installer -o composer-setup.php
-            sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-            mkdir -p ~/.composer/
-            echo '{}'>~/.composer/composer.json
-            composer config -g http-basic.dist.powersync.biz $TECHWEB_REPO_LOGIN $TECHNWEB_REPO_PASSWORD
-            composer config --global repositories.powersync composer https://dist.powersync.biz
-      - run:
-          name: Push changes to wiki
-          command: |
-            cd ~/.composer/
-
-            for package in $PACKAGES_NAME; do
-
-              NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions[]'|grep 2.7.\[0-9\]\*|head -n1`);
-              PAGE_TITLE='_'
-              PAGE_TITLE+=`echo "$package" | sed 's/\//_/'`
-
-              PAGE_SEARCH_DATA=`curl -u $JIRA_LOGIN:$JIRA_TOKEN -X GET "https://technweb.atlassian.net/wiki/rest/api/content?title=$PAGE_TITLE&limit=1&expand=version.number,body.view,body.storage"`
-
-              PAGE_ID=`echo $PAGE_SEARCH_DATA|jq -r '.results[0].id'`
-              PAGE_VERSION=`echo $PAGE_SEARCH_DATA|jq -r '.results[0].version.number'`
-              PAGE_CURRENT_BODY_STORAGE=`echo $PAGE_SEARCH_DATA|jq -r '.results[0].body.storage.value'`
-
-
-              PAGE_NEW_BODY_STORAGE=`echo $PAGE_CURRENT_BODY_STORAGE|sed "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$NEW_MODULE_VERSION/g"|sed 's/\"/\\\"/g'`
-
-              ((PAGE_VERSION++))
-
-              POST_DATA="{
-                  \"id\": $PAGE_ID,
-                  \"type\": \"page\",
-                  \"title\": \"$PAGE_TITLE\",
-                  \"body\": {
-                    \"storage\": {
-                      \"value\": \"$PAGE_NEW_BODY_STORAGE\",
-                      \"representation\": \"storage\"
-                    }
-                  },
-                  \"version\": {
-                    \"number\": $PAGE_VERSION
-                  }
-                }"
-
-              curl --request PUT \
-                --url "https://technweb.atlassian.net/wiki/rest/api/content/$PAGE_ID" \
-                --user "$JIRA_LOGIN:$JIRA_TOKEN" \
-                --header 'Accept: application/json' \
-                --header 'Content-Type: application/json' \
-                --data "$POST_DATA"
-
-            done
-
   m244-commerce-php81: &base-image244
     <<: *base-image
     docker:
@@ -445,75 +385,6 @@ jobs:
             php bin/magento setup:di:compile
             php bin/magento deploy:mode:set developer
 
-  update-wiki-244:
-    docker:
-      - image: circleci/php:7.1-apache-stretch-node-browsers
-    steps:
-      - checkout
-      - run:
-          name: Prepare for wiki update
-          command: |
-            cd ~
-            curl -sS https://getcomposer.org/installer -o composer-setup.php
-            sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-            mkdir -p ~/.composer/
-            echo '{}'>~/.composer/composer.json
-            composer config -g http-basic.dist.powersync.biz $TECHWEB_REPO_LOGIN $TECHNWEB_REPO_PASSWORD
-            composer config --global repositories.powersync composer https://dist.powersync.biz
-      - run:
-          name: Push changes to wiki
-          command: |
-            set -x
-            cd ~/.composer/
-            MODULE_NAME=$(grep -o '^ *"name": *"[a-zA-Z\/]*"' ~/project/composer.json |  awk '{print $2}' | sed -e 's/"\(.*\)"/\1/g')
-            for package in $PACKAGES_NAME; do
-
-              if [[ "$package" == "$MODULE_NAME" ]];
-              then
-                NEW_MODULE_VERSION=$(grep -o '^ *"version": *"[0-9\.]*"' ~/project/composer.json | awk '{print $2}' | sed -e 's/"\(.*\)"/\1/g')
-              else
-                NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions[]'|grep 2.8.\[0-9\]\*|head -n1`);
-              fi
-
-              PAGE_TITLE='_'
-              PAGE_TITLE+=`echo "$package" | sed 's/\//_/'`
-              PAGE_TITLE+='-2.4.4'
-
-              PAGE_SEARCH_DATA=`curl -u $JIRA_LOGIN:$JIRA_TOKEN -X GET "https://technweb.atlassian.net/wiki/rest/api/content?title=$PAGE_TITLE&limit=1&expand=version.number,body.view,body.storage"`
-
-              PAGE_ID=`echo $PAGE_SEARCH_DATA|jq -r '.results[0].id'`
-              PAGE_VERSION=`echo $PAGE_SEARCH_DATA|jq -r '.results[0].version.number'`
-              PAGE_CURRENT_BODY_STORAGE=`echo $PAGE_SEARCH_DATA|jq -r '.results[0].body.storage.value'`
-
-
-              PAGE_NEW_BODY_STORAGE=`echo $PAGE_CURRENT_BODY_STORAGE|sed "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$NEW_MODULE_VERSION/g"|sed 's/\"/\\\"/g'`
-
-              ((PAGE_VERSION++))
-
-              POST_DATA="{
-                  \"id\": $PAGE_ID,
-                  \"type\": \"page\",
-                  \"title\": \"$PAGE_TITLE\",
-                  \"body\": {
-                    \"storage\": {
-                      \"value\": \"$PAGE_NEW_BODY_STORAGE\",
-                      \"representation\": \"storage\"
-                    }
-                  },
-                  \"version\": {
-                    \"number\": $PAGE_VERSION
-                  }
-                }"
-
-              curl --request PUT \
-                --url "https://technweb.atlassian.net/wiki/rest/api/content/$PAGE_ID" \
-                --user "$JIRA_LOGIN:$JIRA_TOKEN" \
-                --header 'Accept: application/json' \
-                --header 'Content-Type: application/json' \
-                --data "$POST_DATA"
-
-            done
-
   deploy-244:
     <<: *base-deploy
     steps:
@@ -590,51 +461,36 @@ workflows:
           context: powersync
           requires:
             - deploy
-      - update-wiki:
+
+      - m244-commerce-php81:
           context: powersync
-          requires:
-            - check-composer-installation
           filters:
             branches:
-              ignore: /.*-2\.4\.4/
-              only: master
-
-      #      - m244-commerce-php81:
-      #          context: powersync
-      #          filters:
-      #            branches:
-      #              only: /.*-2\.4\.4/
-      #      - magento-coding-standard-244:
-      #          context: powersync
-      #          filters:
-      #            branches:
-      #              only: master-2.4.4
-      #      - deploy-244:
-      #          context: powersync
-      #          requires:
-      #            - tag-release-244
-      #          filters:
-      #            branches:
-      #              only: master-2.4.4
-      #      - tag-release-244:
-      #          context: powersync
-      #          requires:
-      #            - m244-commerce-php81
-      #            - magento-coding-standard-244
-      #          filters:
-      #            branches:
-      #              only: master-2.4.4
-      - check-composer-installation-244:
+              only: /.*-2\.4\.4/
+      - magento-coding-standard-244:
           context: powersync
-          requires:
-          #            - deploy-244
           filters:
             branches:
               only: master-2.4.4
-#      - update-wiki-244:
-#          context: powersync
-#          requires:
-#            - check-composer-installation-244
-#          filters:
-#            branches:
-#              only: master-2.4.4
+      - deploy-244:
+          context: powersync
+          requires:
+            - tag-release-244
+          filters:
+            branches:
+              only: master-2.4.4
+      - tag-release-244:
+          context: powersync
+          requires:
+            - m244-commerce-php81
+            - magento-coding-standard-244
+          filters:
+            branches:
+              only: master-2.4.4
+      - check-composer-installation-244:
+          context: powersync
+          requires:
+            - deploy-244
+          filters:
+            branches:
+              only: master-2.4.4
