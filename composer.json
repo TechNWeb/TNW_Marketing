@@ -3,6 +3,9 @@
     "description": "PowerSync  Marketing",
     "require": {
     },
+    "license": [
+        "gpl-3.0"
+    ],
     "type": "magento2-module",
     "version": "2.7.0",
     "autoload": {
