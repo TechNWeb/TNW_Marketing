@@ -1,5 +1,5 @@
-/**
- * Copyright © 2018 TechNWeb, Inc. All rights reserved.
+/*
+ * Copyright © 2022 TechNWeb, Inc. All rights reserved.
  * See TNW_LICENSE.txt for license details.
  */
 define([
