@@ -249,6 +249,15 @@ jobs:
       - image: circleci/php:7.1-apache-stretch-node-browsers
     steps:
       - run:
+          name: Reinstall Composer
+          command: |
+            cd ~
+            curl -sS https://getcomposer.org/installer -o composer-setup.php
+            sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+            cd /var/www/html/magento/
+            composer --no-plugins config allow-plugins true
+            sudo composer self-update --1
+      - run:
           name: Prepare for wiki update
           command: |
             mkdir -p ~/.composer/
@@ -262,7 +271,7 @@ jobs:
 
             for package in $PACKAGES_NAME; do
 
-              NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions'|grep 2.7.\[0-9\]\*|head -n1`);
+              NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions'|grep -o 2.7.\[0-9\]\*|head -n1`);
               PAGE_TITLE='_'
               PAGE_TITLE+=`echo "$package" | sed 's/\//_/'`
 
