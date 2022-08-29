@@ -202,6 +202,7 @@ jobs:
             sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
             cd /var/www/html/magento/
             composer --no-plugins config allow-plugins true
+            sudo composer self-update --1
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
@@ -224,7 +225,7 @@ jobs:
           command: |
             cd /var/www/html/magento/
             for package in $PACKAGES_NAME; do
-              NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions'|grep 2.7.\[0-9\]\*|head -n1`);
+              NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions'|grep -o 2.7.\[0-9\]\*|head -n1`);
               composer require $package=$NEW_MODULE_VERSION
             done
 
