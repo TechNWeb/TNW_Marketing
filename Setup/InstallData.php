@@ -20,7 +20,7 @@ class InstallData implements InstallDataInterface
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
-        $setup->getConnection()->insert(
+        $setup->getConnection()->insertOnDuplicate(
             $setup->getTable('core_config_data'),
             [
                 'scope' => 'default',
