@@ -14,4 +14,8 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\Integration\Block\Adminhtml\Integration">
+        <plugin name="tnw_add_promo_button"
+                type="TNW\Marketing\Plugin\AddPromoButton"/>
+    </type>
 </config>
