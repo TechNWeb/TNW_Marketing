@@ -185,3 +185,62 @@
 .rating-stars ul > li.star.selected > i.fa {
   color:#FF912C;
 }
+
+#tnw_grid_promo_button {
+    order: 10;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: #777;
+    font-size: 2.5rem;
+    font-weight: normal;
+}
+.tnw-promo-modal {
+    left: ~'calc(100vw - 620px)';
+}
+.tnw-marketing-item {
+    margin-bottom: 2rem;
+    .title {
+        display: block;
+        font-size: 1.8rem;
+        margin: 1rem 0 1rem 0;
+    }
+    ul {
+        padding-left: 2rem;
+        margin-bottom: 2rem;
+        list-style: none;
+        li {
+            position: relative;
+            margin-bottom: 1rem;
+            .fa-li {
+                font-size: 1.6rem;
+                left: -29px;
+            }
+        }
+    }
+    .red-text {
+        color: #B84626;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+    .installed {
+        color: #79a22e;
+        font-weight: bold;
+        margin-top: 1rem;
+    }
+    .assistance {
+        margin-left: 2rem;
+    }
+    .button {
+        .lib-link-as-button();
+        .lib-button-primary(
+            @_button-background: @color-phoenix,
+            @_button-background-hover: @color-phoenix-down,
+            @_button-background-active: @color-phoenix,
+            @_button-border: 1px solid @color-phoenix,
+            @_button-border-hover: 1px solid @color-phoenix-down,
+            @_button-border-active: 1px solid @color-phoenix
+        );
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+}
