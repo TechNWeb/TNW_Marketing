@@ -198,7 +198,13 @@
     left: ~'calc(100vw - 620px)';
 }
 .tnw-marketing-item {
-    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 1.5rem;
+    &:last-child {
+        margin-bottom: 0;
+        border: none;
+    }
     .title {
         display: block;
         font-size: 1.8rem;
