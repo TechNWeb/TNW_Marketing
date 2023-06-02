@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright © 2022 TechNWeb, Inc. All rights reserved.
+ * See TNW_LICENSE.txt for license details.
+ */
+
+/**
+ * @var $block Magento\Backend\Block\Template
+ * @var $viewModel TNW\Marketing\ViewModel\PromotionProducts
+ * @var $escaper Magento\Framework\Escaper
+ */
+
+$viewModel = $block->getData('view_model');
+$handles = $block->getLayout()->getUpdate()->getHandles();
+?>
+
+<?php foreach ($block->getData('promotion_modules') as $module): ?>
+    <?php if (!$viewModel->shouldRender($module, $handles)) {
+        continue;
+    }?>
+<div class="tnw-marketing-item">
+    <a href="<?= $escaper->escapeHtmlAttr($viewModel->getProductUrl($module)) ?>"
+       class="title"
+       target="_blank">
+        <?= $escaper->escapeHtml($viewModel->getProductTitle($module))?>
+    </a>
+    <?php $description = $escaper->escapeHtml(
+        $viewModel->getProductFullDescription($module),
+        ['ul', 'li', 'a', 'p', 'i']
+    ) ?>
+    <?= /* @noEscape */ str_replace('<a ', '<a target="_blank" ', $description) ?>
+    <?php if ($viewModel->isModuleInstalled($module)): ?>
+        <p class="installed">
+            <i class="icon-admin-pagebuilder-success"></i>
+            <?= $escaper->escapeHtml(__('Installed, thank you!')) ?>
+        </p>
+        <p class="assistance">
+            <?= $escaper->escapeHtml(__('Need assistance?')) ?>&nbsp;
+            <a href="https://support.powersync.biz" target="_blank"><?= $escaper->escapeHtml(__('Open a ticket')) ?></a>
+        </p>
+    <?php else: ?>
+        <?php if ($viewModel->getNotInstalledText($module)): ?>
+            <p class="red-text"><?= $escaper->escapeHtml($viewModel->getNotInstalledText($module)) ?></p>
+        <?php endif; ?>
+        <a href="<?= $escaper->escapeHtmlAttr($viewModel->getProductUrl($module)) ?>"
+           class="button"
+           target="_blank">
+            <?= $escaper->escapeHtml($viewModel->getButtonText($module)) ?>
+        </a>
+    <?php endif; ?>
+</div>
+<?php endforeach; ?>
