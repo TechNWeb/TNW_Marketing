@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2022 TechNWeb, Inc. All rights reserved.
+  ~ See TNW_LICENSE.txt for license details.
+  -->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <settings>
+        <buttons>
+            <button name="tnw_grid_promo_button" class="TNW\Marketing\Block\Adminhtml\Grid\PromoButton" />
+        </buttons>
+    </settings>
+</listing>

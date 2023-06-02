@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2022 TechNWeb, Inc. All rights reserved.
+  ~ See TNW_LICENSE.txt for license details.
+  -->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">tnw_marketing_form.tnw_marketing_form_data_source</item>
+            <item name="deps" xsi:type="string">tnw_marketing_form.tnw_marketing_form_data_source</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <dataSource name="tnw_marketing_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <dataProvider class="TNW\Marketing\Ui\DataProvider\ModalForm" name="tnw_marketing_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <modal name="tnw_promo_automation_modal">
+        <settings>
+            <options>
+                <option name="modalClass" xsi:type="string">tnw-promo-modal</option>
+            </options>
+        </settings>
+        <htmlContent name="tnw_promo_automation_content">
+            <block name="tnw_promo_automation_content_block"
+                   class="Magento\Backend\Block\Template"
+                   template="TNW_Marketing::grid/modal_content.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">TNW\Marketing\ViewModel\PromotionProducts</argument>
+                    <argument name="promotion_modules" xsi:type="array">
+                        <item name="0" xsi:type="string">TNW_Subscriptions</item>
+                        <item name="1" xsi:type="string">TNW_VendorInvoice</item>
+                        <item name="2" xsi:type="string">TNW_Stripe</item>
+                        <item name="3" xsi:type="string">TNW_AuthorizeCim</item>
+                        <item name="4" xsi:type="string">TNW_Salesforce</item>
+                        <item name="5" xsi:type="string">TNW_QuickbooksBasic</item>
+                    </argument>
+                </arguments>
+            </block>
+        </htmlContent>
+    </modal>
+</form>
