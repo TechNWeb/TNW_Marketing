@@ -62,7 +62,7 @@
                                 <li><i class="fa fa-li fa-check-circle-o"></i>A flexible solution makes it easy to integrate with other payment gateways;</li>
                                 <li><i class="fa fa-li fa-check-circle-o"></i>A PCI-compliant solution that is integrated with Adobe Commerce Vault for enhanced security;</li>
                                 <li><i class="fa fa-li fa-check-circle-o"></i>Pre-built customer notification email templates;</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Native integration with <a href="https://visit.powersync.biz/admin-panel-mpower">Bills</a> (for Adobe Commerce)</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i>Native integration with <a href="https://visit.powersync.biz/admin-panel-bills">Bills</a> (for Adobe Commerce)</li>
                             </ul>
                         ]]>
                     </full_description>
