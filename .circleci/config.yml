@@ -101,7 +101,7 @@ jobs:
             php bin/magento setup:di:compile
             php bin/magento deploy:mode:set developer
   m233-open_source-php71:
-    <<: *base-image
+    <<: *base-image243
     docker:
       - image: powersync/magento-builds:m233-open_source-php71
         auth:
@@ -115,7 +115,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: docker
 
   m243-commerce-php74:
-    <<: *base-image
+    <<: *base-image243
     docker:
       - image: powersync/magento-builds:m243-commerce-php74
         auth:
@@ -129,7 +129,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: docker
 
   m243-open_source-php74:
-    <<: *base-image
+    <<: *base-image243
     docker:
       - image: powersync/magento-builds:m243-open_source-php74
         auth:
@@ -143,7 +143,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: docker
 
   m235-commerce-php73:
-    <<: *base-image
+    <<: *base-image243
     docker:
       - image: powersync/magento-builds:m235-commerce-php73
         auth:
@@ -156,7 +156,7 @@ jobs:
           MYSQL_DATABASE: magento
           MYSQL_ROOT_PASSWORD: docker
   m235-open_source-php73:
-    <<: *base-image
+    <<: *base-image243
     docker:
       - image: powersync/magento-builds:m235-open_source-php73
         auth:
@@ -189,7 +189,7 @@ jobs:
             /var/www/html/magento-coding-standard/vendor/bin/phpcs $CIRCLE_WORKING_DIRECTORY --standard=MEQP2 --severity=10 --extensions=php,phtml
 
   check-composer-installation:
-    <<: *base-image
+    <<: *base-image243
     docker:
       - image: powersync/magento-builds:m233-open_source-php72
         auth:
@@ -317,7 +317,7 @@ jobs:
             done
 
   m244-commerce-php81: &base-image244
-    <<: *base-image
+    <<: *base-image243
     docker:
       - image: powersync/magento-builds:m244-commerce-php815-elastic716
         auth:
