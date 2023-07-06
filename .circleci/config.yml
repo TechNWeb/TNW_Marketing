@@ -105,10 +105,10 @@ jobs:
           MYSQL_DATABASE: magento
           MYSQL_ROOT_PASSWORD: docker
 
-  m234-commerce-php72:
+  m243-commerce-php74:
     <<: *base-image
     docker:
-      - image: powersync/magento-builds:m234-commerce-php72
+      - image: powersync/magento-builds:m243-commerce-php74
         auth:
           username: $DOCKER_USER
           password: $DOCKER_PASS
@@ -119,10 +119,10 @@ jobs:
           MYSQL_DATABASE: magento
           MYSQL_ROOT_PASSWORD: docker
 
-  m234-open_source-php72:
+  m243-open_source-php74:
     <<: *base-image
     docker:
-      - image: powersync/magento-builds:m234-open_source-php72
+      - image: powersync/magento-builds:m243-open_source-php74
         auth:
           username: $DOCKER_USER
           password: $DOCKER_PASS
@@ -161,7 +161,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: docker
   magento-coding-standard:
     docker:
-      - image: powersync/magento-builds:m234-commerce-php72
+      - image: powersync/magento-builds:m243-commerce-php74
         auth:
           username: $DOCKER_USER
           password: $DOCKER_PASS
@@ -532,13 +532,13 @@ workflows:
 
   test-deploy-wiki:
     jobs:
-      - m234-commerce-php72:
+      - m243-commerce-php74:
           context: powersync
           filters:
             branches:
               ignore: /.*-2\.4\.4/
               only: /.*/
-      - m234-open_source-php72:
+      - m243-open_source-php74:
           context: powersync
           filters:
             branches:
@@ -583,8 +583,8 @@ workflows:
           requires:
             - m233-commerce-php72
             - m233-open_source-php71
-            - m234-commerce-php72
-            - m234-open_source-php72
+            - m243-commerce-php74
+            - m243-open_source-php74
             - m235-commerce-php73
             - m235-open_source-php73
             - magento-coding-standard
