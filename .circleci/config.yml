@@ -38,6 +38,7 @@ jobs:
     working_directory: ~/tnw_extension
     steps:
       - checkout
+      - run:
           name: Reinstall Composer
           command: |
             cd ~
