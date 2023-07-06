@@ -9,6 +9,7 @@ jobs:
           name: Deploy Over SSH
           command: |
             ssh $SSH_USER@$SSH_HOST "./release"
+            
   tag-release: &base-tag-release
     machine:
       image: ubuntu-2004:202201-02
@@ -23,7 +24,7 @@ jobs:
             chmod +x git_release.sh
             ./git_release.sh
 
-  m243-commerce-php74: &base-image
+  m243-commerce-php74: &base-image243
     docker:
       - image: powersync/magento-builds:m243-commerce-php74
         auth:
