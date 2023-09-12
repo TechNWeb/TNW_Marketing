@@ -2,7 +2,7 @@
     "name": "tnw/marketing",
     "description": "PowerSync  Marketing",
     "require": {
-        "php": "~8.1.0"
+        "php": "~8.1"
     },
     "license": [
         "gpl-3.0"
