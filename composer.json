@@ -2,13 +2,13 @@
     "name": "tnw/marketing",
     "description": "PowerSync  Marketing",
     "require": {
-        "php": "~8.1.0"
+        "php": "~8.1"
     },
     "license": [
         "gpl-3.0"
     ],
     "type": "magento2-module",
-    "version": "2.10.2",
+    "version": "2.10.3",
     "autoload": {
         "files": [ "registration.php" ],
         "psr-4": {
