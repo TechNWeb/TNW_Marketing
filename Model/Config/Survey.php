@@ -16,6 +16,8 @@ use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Framework\Mail\Template\TransportBuilder;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Store\Model\WebsiteRepository;
+use Magento\Authorization\Model\UserContextInterface;
+use Magento\Backend\Model\Auth\Session;
 
 /**
  * Class Survey
@@ -87,6 +89,15 @@ class Survey
      */
     protected $timezone;
 
+    protected $authSession;
+
+    /**
+     * Acl builder
+     *
+     * @var \Magento\Authorization\Model\Acl\AclRetriever
+     */
+    protected $_aclRetriever;
+
     /**
      * CanViewNotification constructor.
      *
@@ -110,7 +121,9 @@ class Survey
         TransportBuilder $transportBuilder,
         StoreManagerInterface $storeManager,
         WebsiteRepository $websiteRepository,
-        $optionsObjects
+        $optionsObjects,
+        Session $authSession,
+        \Magento\Authorization\Model\Acl\AclRetriever $aclRetriever
     )
     {
         $this->scopeConfig = $scopeConfig;
@@ -124,6 +137,9 @@ class Survey
         $this->websiteRepository = $websiteRepository;
 
         $this->optionsObjects = $optionsObjects;
+
+        $this->authSession = $authSession;
+        $this->_aclRetriever = $aclRetriever;
     }
 
     /**
@@ -140,12 +156,26 @@ class Survey
         return $this->scopeConfig->getValue($configPath);
     }
 
+    public function isAdmin()
+    {
+        $user = $this->authSession->getUser();
+        $role = $user->getRole();
+        $resources = $this->_aclRetriever->getAllowedResourcesByRole($role->getId());
+
+        return in_array("Magento_Backend::all", $resources);
+    }
     /**
      * @param null $module
      * @return bool
      */
     public function shallShow($module = null)
     {
+
+        // show survey dialog for admin with full permissions only
+        if (!$this->isAdmin()) {
+            return false;
+        }
+
         $startDate = $this->startDate($module);
         if (empty($startDate)) {
             return false;
