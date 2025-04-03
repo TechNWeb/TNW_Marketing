@@ -40,10 +40,9 @@
                     <argument name="promotion_modules" xsi:type="array">
                         <item name="0" xsi:type="string">TNW_Subscriptions</item>
                         <item name="1" xsi:type="string">TNW_VendorInvoice</item>
-                        <item name="2" xsi:type="string">TNW_Stripe</item>
-                        <item name="3" xsi:type="string">TNW_AuthorizeCim</item>
-                        <item name="4" xsi:type="string">TNW_Salesforce</item>
-                        <item name="5" xsi:type="string">TNW_QuickbooksBasic</item>
+                        <item name="2" xsi:type="string">TNW_Salesforce</item>
+                        <item name="3" xsi:type="string">TNW_Stripe</item>
+                        <item name="4" xsi:type="string">TNW_AuthorizeCim</item>
                     </argument>
                 </arguments>
             </block>

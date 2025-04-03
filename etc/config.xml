@@ -46,104 +46,91 @@
             </products>
             <promotions>
                 <TNW_Subscriptions>
-                    <applicable_routes>catalog_product_index,sales_invoice_index,sales_order_index</applicable_routes>
-                    <url>https://visit.powersync.biz/admin-panel-mpower</url>
-                    <title>Subscriptions and Recurring Payments</title>
+                    <applicable_routes>catalog_product_index,sales_order_index,quotes_quote_index</applicable_routes>
+                    <url>https://technweb.com/subscription-management-and-recurring-billing-for-magento</url>
+                    <title>Turn Repeat Buyers into Reliable Revenue with Subscriptions</title>
                     <button_text>Learn More</button_text>
-                    <not_installed_text>Memberships, Auto-Shipments or Subscriptions. Never lose a sale from a repeat buyer.</not_installed_text>
                     <full_description>
                         <![CDATA[
-                        <p>Build a consistent and predictable revenue stream by offering a subscription to your services or products your customers buy from you frequently:</p>
+                        <p>Build a consistent, predictable revenue stream by offering subscriptions for the products or services your customers purchase most often. Our solution is natively integrated with Adobe Commerce (Magento) and designed for flexibility, scale, and security.</p>
                             <ul>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Track &amp; manage customer subscriptions directly in Adobe Commerce (aka. Magento);</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>The most flexible and robust solution on the market (per customer testimonials);</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Supports native Cart Price Rules and Catalog Price Rules in Adobe Commerce;</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Supports Stripe, PayPal, Braintree, Authorize.Net, CyberSource, and all offline payment methods available in Magento out of the box;</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>A flexible solution makes it easy to integrate with other payment gateways;</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>A PCI-compliant solution that is integrated with Adobe Commerce Vault for enhanced security;</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Pre-built customer notification email templates;</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Native integration with <a href="https://visit.powersync.biz/admin-panel-bills">Bills</a> (for Adobe Commerce)</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i>Seamlessly <b>track and manage subscriptions</b> within Adobe Commerce</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i><b>Highly flexible and robust,</b> backed by customer testimonials</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i>Fully supports <b>Cart Price Rules</b> and <b>Catalog Price Rules</b></li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i>Compatible with <b>Stripe, PayPal, Braintree, <a href="https://www.authorize.net/">Authorize.Net</a>, CyberSource,</b> and all Magento-supported offline payment methods</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i>Easily integrates with <b>additional payment gateways</b></li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i><b>PCI-compliant,</b> leveraging Adobe Commerce Vault for secure data storage</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i>Includes <b>pre-built email templates</b> for customer notifications</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i>Native support for <b><a href="https://link.technweb.com/425VlSi">Bills</a></b> in Adobe Commerce</li>
                             </ul>
+                            <p>Whether you’re offering <b>memberships, auto-shipments,</b> or <b>recurring subscriptions,</b> this solution helps you retain loyal customers and never miss a sale.</p>
                         ]]>
                     </full_description>
                 </TNW_Subscriptions>
                 <TNW_VendorInvoice>
-                    <applicable_routes>sales_invoice_index,sales_order_index</applicable_routes>
-                    <url>https://visit.powersync.biz/admin-panel-bills</url>
-                    <title>Billing &amp; Invoices</title>
+                    <applicable_routes>sales_invoice_index</applicable_routes>
+                    <url>https://link.technweb.com/425VlSi</url>
+                    <title>Simplify Invoicing and Vendor Billing in Adobe Commerce</title>
                     <button_text>Learn More</button_text>
                     <full_description>
                         <![CDATA[
-                            <p>Send invoices to your customers and bills for your vendors directly in the Adobe Commerce platform. Automatically apply late fees and automatically collect invoice payments using the Adobe invoice software.</p>
+                            <p>Seamlessly send invoices to customers and bills to vendors — directly within your Adobe Commerce platform. Automate late fees, reminders, and payment collection with powerful, built-in invoice management tools.</p>
                             <ul>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Flexible NET Terms</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Automatic Invoice Reminders</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Automatic Collections (CC & ACH)</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Pre-built Email Templates</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Global & Customer-Specific Settings</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>PDF Invoice Attachments</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Flexible Invoice Prefixes and Numbers</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i><b>Flexible NET Terms</b> for tailored payment schedules</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i><b>Automated Invoice Reminders</b> to reduce manual follow-up</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i><b>Automatic Payment Collection</b> via Credit Card and ACH</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i><b>Pre-Built Email Templates</b> for consistent, professional communication</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i><b>Global & Customer-Specific Settings</b> to fit your business needs</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i><b>PDF Invoice Attachments</b> included with every email</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i><b>Customizable Invoice Prefixes</b> and Numbering for easy tracking</li>
                             </ul>
+                            <p>Take control of your receivables with a smart, scalable invoicing solution—fully integrated into Adobe Commerce.</p>
                         ]]>
                     </full_description>
                 </TNW_VendorInvoice>
                 <TNW_Stripe>
                     <applicable_routes>adminhtml_integration_index</applicable_routes>
-                    <url>https://visit.powersync.biz/admin-panel-stripe</url>
+                    <url>https://technweb.com/magento-stripe-payment-integration</url>
                     <title>Stripe Integration</title>
-                    <button_text>Download Today</button_text>
+                    <button_text>FREE Download</button_text>
                     <full_description>
                         <![CDATA[
-                            <p>A FREE Stripe Payment Gateway Integration lets your customers pay for your products and services through your website in a safe, PCI-compliant manner. It's a complimentary product by PowerSync and the Magento community</p>
+                            <p>Enable secure, seamless payments on your website with our <b>FREE Stripe Payment Gateway Integration</b>. This PCI-compliant solution allows your customers to safely purchase products and services online, directly through your Adobe Commerce store.</p>
+                            <p>Proudly offered as a complimentary product by <b>TechNWeb, Inc.</b> in collaboration with the <b>Magento community</b>.</p>
                         ]]>
                     </full_description>
                 </TNW_Stripe>
                 <TNW_AuthorizeCim>
                     <applicable_routes>adminhtml_integration_index</applicable_routes>
-                    <url>https://visit.powersync.biz/admin-panel-authnet</url>
+                    <url>https://technweb.com/magento-authorize-net-payment-integration</url>
                     <title>Authorize.Net CIM Integration</title>
-                    <button_text>Download Today</button_text>
+                    <button_text>FREE Download</button_text>
                     <full_description>
                         <![CDATA[
-                            <p>A FREE Authorize.Net Payment Gateway Integration lets your customers pay for your products and services through your website in a safe, PCI-compliant manner. It's a complimentary product by PowerSync and the Magento community</p>
+                            <p>Offer your customers a secure, seamless checkout experience with our <b>FREE <a href="https://www.authorize.net/">Authorize.Net</a> Payment Gateway Integration</b>. This PCI-compliant solution enables safe online payments for your products and services—fully integrated with Adobe Commerce (Magento).</p>
+                            <p>Provided at no cost by <b>TechNWeb, Inc.</b> in partnership with the <b>Magento community</b>.</p>
                         ]]>
                     </full_description>
                 </TNW_AuthorizeCim>
                 <TNW_Salesforce>
-                    <applicable_routes>adminhtml_integration_index</applicable_routes>
-                    <url>https://visit.powersync.biz/admin-panel-m-sf</url>
-                    <title>Integration with Salesforce Sales/Service Cloud</title>
+                    <applicable_routes>adminhtml_integration_index,customer_index_index,adminhtml_export_index,company_index_index,catalog_product_index,sales_order_index,sales_invoice_index,quotes_quote_index</applicable_routes>
+                    <url>https://idealdata.io/lp/magento-crm-integration</url>
+                    <title>Integrate with your CRM</title>
                     <button_text>FREE Trial</button_text>
                     <full_description>
                         <![CDATA[
-                            <p>Integrate with Salesforce Sales & Service Cloud platforms to personalize your customer experience, increase conversions, and grow your sales.</p>
+                            <p>Integrating your Adobe Commerce platform with a Customer Relationship Management (CRM) system can significantly enhance your business operations by automating processes, reducing errors, and providing comprehensive customer insights.</p>
+                            <p><a href="https://idealdata.io/">Ideal Data:</a> eCommerce Integration Platform  specializes in seamless Magento-CRM integrations, delivering tangible benefits:</p>
                             <ul>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Use Salesforce data to personalize customer shopping experience;</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Use sales and abandoned cart data to influence marketing decisions and activities for your business;</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Leverage Salesforce AI ChatBot and LifeAgent integrations to increase your conversion rates &amp; customer satisfaction;</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Bring sales data to Salesforce and start to leverage omnichannel reports for your business;</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i><b>Increased Sales:</b> Achieve up to a 25% close rate on abandoned cart deals through automated recovery strategies.</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i><b>Operational Efficiency:</b> Eliminate manual errors with automated product synchronization between your store and your CRM.</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i><b>Real-Time Analytics:</b> Access revenue dashboards for instant sales tracking and informed decision-making.</li>
+                                <li><i class="fa fa-li fa-check-circle-o"></i><b>Personalized Marketing:</b> Utilize data-driven insights to craft targeted marketing campaigns that resonate with your audience.</li>
                             </ul>
+                            <p>Discover how <a href="https://idealdata.io/">Ideal Data:</a> eCommerce Integration Platform  can transform your sales and marketing efforts by seamlessly connecting Adobe Commerce platform with your CRM.</p>
                         ]]>
                     </full_description>
                 </TNW_Salesforce>
-                <TNW_QuickbooksBasic>
-                    <applicable_routes>adminhtml_integration_index</applicable_routes>
-                    <url>https://visit.powersync.biz/admin-panel-qbo</url>
-                    <title>Integration with QuickBooks Online</title>
-                    <button_text>FREE Trial</button_text>
-                    <full_description>
-                        <![CDATA[
-                            <p>Get your store integrated with QuickBooks Online today by QuickBooks and Magento certified specialists.</p>
-                            <ul>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Customer Data;</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Catalog Data;</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Sales Receipts, Invoices and Payments;</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Refunds;</li>
-                                <li><i class="fa fa-li fa-check-circle-o"></i>Close to real-time integration;</li>
-                            </ul>
-                        ]]>
-                    </full_description>
-                </TNW_QuickbooksBasic>
             </promotions>
         </marketing>
     </default>

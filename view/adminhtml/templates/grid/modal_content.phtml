@@ -26,7 +26,7 @@ $handles = $block->getLayout()->getUpdate()->getHandles();
     </a>
     <?php $description = $escaper->escapeHtml(
         $viewModel->getProductFullDescription($module),
-        ['ul', 'li', 'a', 'p', 'i']
+        ['ul', 'li', 'a', 'p', 'i', 'b']
     ) ?>
     <?= /* @noEscape */ str_replace('<a ', '<a target="_blank" ', $description) ?>
     <?php if ($viewModel->isModuleInstalled($module)): ?>
@@ -36,7 +36,7 @@ $handles = $block->getLayout()->getUpdate()->getHandles();
         </p>
         <p class="assistance">
             <?= $escaper->escapeHtml(__('Need assistance?')) ?>&nbsp;
-            <a href="https://support.powersync.biz" target="_blank"><?= $escaper->escapeHtml(__('Open a ticket')) ?></a>
+            <a href="https://support.idealdata.io" target="_blank"><?= $escaper->escapeHtml(__('Open a ticket')) ?></a>
         </p>
     <?php else: ?>
         <?php if ($viewModel->getNotInstalledText($module)): ?>

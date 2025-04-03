@@ -13,13 +13,6 @@
                 </field>
             </group>
         </section>
-        <section id="quickbooks">
-            <group id="general">
-                <field id="tnw_marketing" translate="label" type="text" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <frontend_model>TNW\Marketing\Block\System\Config\Form\Extensions\Products</frontend_model>
-                </field>
-            </group>
-        </section>
         <section id="tnw_subscriptions_general">
             <group id="general">
                 <field id="tnw_marketing" translate="label" type="text" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="0">
