@@ -223,9 +223,6 @@ class SurveyTest extends TestCase
      */
     public function testProcessAnswer()
     {
-        /** @var \Magento\User\Model\User|MockObject $user */
-        $user = $this->createMock(\Magento\User\Model\User::class);
-
         $configSurvey = $this->createPartialMock(get_class($this->configSurvey), ['getTimestampByRequest', 'sendEmail', 'setStartDate']);
 
         $configSurvey
@@ -258,7 +255,7 @@ class SurveyTest extends TestCase
         $property->setAccessible(true);
         $property->setValue($configSurvey, $this->_eventManager);
 
-        $configSurvey->processAnswer(['module' => 'tnw_marketing'], $user);
+        $configSurvey->processAnswer(['module' => 'tnw_marketing']);
     }
 
     /**
@@ -319,9 +316,9 @@ class SurveyTest extends TestCase
      *
      * @dataProvider dataProviderSendEmail
      */
-    public function testSendEmail($params, $user, $expectation)
+    public function testSendEmail($params, $expectation)
     {
-        $this->assertEquals($expectation, $this->configSurvey->sendEmail($params, $user));
+        $this->assertEquals($expectation, $this->configSurvey->sendEmail($params));
     }
 
     /**
