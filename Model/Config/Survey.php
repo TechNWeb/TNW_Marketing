@@ -18,7 +18,7 @@ use Magento\Store\Model\StoreManagerInterface;
 use Magento\Store\Model\WebsiteRepository;
 use Magento\Authorization\Model\UserContextInterface;
 use Magento\Backend\Model\Auth\Session;
-
+use Magento\Store\Model\ScopeInterface;
 /**
  * Class Survey
  * @package TNW\Marketing\Model\Config
@@ -238,16 +238,18 @@ class Survey
 
     /**
      * @param $params
-     * @param $user
      * @return bool
      * @throws \Magento\Framework\Exception\MailException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function sendEmail($params, $user)
+    public function sendEmail($params)
     {
         if (!empty($params['snooze_survey'])) {
             return false;
         }
+
+        $userEmail = $this->scopeConfig->getValue('trans_email/ident_general/email', ScopeInterface::SCOPE_STORE);
+        $userName = $this->scopeConfig->getValue('trans_email/ident_general/name', ScopeInterface::SCOPE_STORE);
 
         $surveyResult = $params['survey_result'];
 
@@ -260,8 +262,8 @@ class Survey
                 ]
             )
             ->setTemplateVars([
-                'name' => $user->getName(),
-                'email' => $user->getEmail(),
+                'name' => $userName,
+                'email' => $userEmail,
                 'surveyResult' => $this->getSurveyOptionsByType($params['type'])->getOptionText($surveyResult),
                 'websites' => $this->websiteRepository->getList(),
                 'rating' => __('%1 star(s)', $params['rating']),
@@ -270,11 +272,11 @@ class Survey
                 'moduleName' => $params['moduleName'],
             ])
             ->setFrom([
-                'name' => $user->getName(),
-                'email' => $user->getEmail(),
+                'name' => $userName,
+                'email' => $userEmail,
             ])
             ->addTo('marketing@powersync.biz', 'Marketing PowerSync')
-            ->setReplyTo($user->getEmail(), $user->getName())
+            ->setReplyTo($userEmail, $userName)
             ->getTransport();
 
         $transport->sendMessage();
@@ -307,15 +309,14 @@ class Survey
 
     /**
      * @param $params
-     * @param $user \Magento\User\Model\User
      * @return $this
      * @throws LocalizedException
      */
-    public function processAnswer($params, $user)
+    public function processAnswer($params)
     {
         $timestamp = $this->getTimestampByRequest($params);
 
-        $this->sendEmail($params, $user);
+        $this->sendEmail($params);
 
         $this->setStartDate($params['module'], $timestamp);
 
