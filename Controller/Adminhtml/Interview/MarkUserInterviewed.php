@@ -61,9 +61,12 @@ class MarkUserInterviewed extends Action
      */
     public function execute()
     {
+        /** @var \Magento\User\Model\User $adminUser */
+        $adminUser = $this->_auth->getUser();
+
         try {
             $params = $this->_request->getParams();
-            $this->configSurvey->processAnswer($params);
+            $this->configSurvey->processAnswer($params, $adminUser);
 
             $responseContent = [
                 'success' => true,
