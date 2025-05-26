@@ -242,14 +242,14 @@ class Survey
      * @throws \Magento\Framework\Exception\MailException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function sendEmail($params)
+    public function sendEmail($params, $adminUser)
     {
         if (!empty($params['snooze_survey'])) {
             return false;
         }
 
-        $userEmail = $this->scopeConfig->getValue('trans_email/ident_general/email', ScopeInterface::SCOPE_STORE);
         $userName = $this->scopeConfig->getValue('trans_email/ident_general/name', ScopeInterface::SCOPE_STORE);
+        $userEmail = $this->scopeConfig->getValue('trans_email/ident_general/email', ScopeInterface::SCOPE_STORE);
 
         $surveyResult = $params['survey_result'];
 
@@ -262,8 +262,8 @@ class Survey
                 ]
             )
             ->setTemplateVars([
-                'name' => $userName,
-                'email' => $userEmail,
+                'name' => $adminUser->getName(),
+                'email' => $adminUser->getEmail(),
                 'surveyResult' => $this->getSurveyOptionsByType($params['type'])->getOptionText($surveyResult),
                 'websites' => $this->websiteRepository->getList(),
                 'rating' => __('%1 star(s)', $params['rating']),
@@ -312,11 +312,11 @@ class Survey
      * @return $this
      * @throws LocalizedException
      */
-    public function processAnswer($params)
+    public function processAnswer($params, $adminUser)
     {
         $timestamp = $this->getTimestampByRequest($params);
 
-        $this->sendEmail($params);
+        $this->sendEmail($params, $adminUser);
 
         $this->setStartDate($params['module'], $timestamp);
 
