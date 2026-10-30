@@ -159,6 +159,7 @@ jobs:
     docker:
       - image: circleci/php:7.1-apache-stretch-node-browsers
     steps:
+      - checkout
       - run:
           name: Reinstall Composer
           command: |
@@ -176,23 +177,36 @@ jobs:
           name: Push changes to wiki
           command: |
             cd ~/.composer/
+            MODULE_NAME=$(grep -o '^ *"name": *"[a-zA-Z\/\-]*"' ~/project/composer.json |  awk '{print $2}' | sed -e 's/"\(.*\)"/\1/g')
 
             for package in $PACKAGES_NAME; do
 
-              NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions'|grep -o 2.9.\[0-9\]\*|head -n1`);
               PAGE_TITLE='_'
               PAGE_TITLE+=`echo "$package" | sed 's/\//_/'`
 
               PAGE_SEARCH_DATA=`curl -u $JIRA_LOGIN:$JIRA_TOKEN -X GET "https://technweb.atlassian.net/wiki/rest/api/content?title=$PAGE_TITLE&limit=1&expand=version.number,body.view,body.storage"`
 
               PAGE_ID=`echo $PAGE_SEARCH_DATA|jq -r '.results[0].id'`
+              if [ "$PAGE_ID" = "null" ]; then
+                # Nothing to update; the release itself is done
+                echo "No wiki page titled $PAGE_TITLE: $package is not updated on the wiki"
+                continue
+              fi
+
+              # Marketing has one line (2.10.x) that both the 2.9 and the 2.10 Salesforce modules use
+              if [[ "$package" == "$MODULE_NAME" ]];
+              then
+                NEW_MODULE_VERSION=$(grep -o '^ *"version": *"[0-9\.]*"' ~/project/composer.json | awk '{print $2}' | sed -e 's/"\(.*\)"/\1/g')
+              else
+                NEW_MODULE_VERSION=(`composer show -al $package -f json|jq -r '.versions'|grep -o 2.9.\[0-9\]\*|head -n1`);
+              fi
               PAGE_VERSION=`echo $PAGE_SEARCH_DATA|jq -r '.results[0].version.number'`
               PAGE_CURRENT_BODY_STORAGE=`echo $PAGE_SEARCH_DATA|jq -r '.results[0].body.storage.value'`
 
 
               PAGE_NEW_BODY_STORAGE=`echo $PAGE_CURRENT_BODY_STORAGE|sed "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$NEW_MODULE_VERSION/g"|sed 's/\"/\\\"/g'`
 
-              ((PAGE_VERSION++))
+              PAGE_VERSION=$((PAGE_VERSION + 1))
 
               POST_DATA="{
                   \"id\": $PAGE_ID,
